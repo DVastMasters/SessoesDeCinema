@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-07-16T21:26:48.820Z" agent="5.0 (X11)" etag="N9RKqC2W7GyuQKM_hnhg" version="14.9.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-07-16T21:40:01.744Z" agent="5.0 (X11)" etag="hLug1K-yT6rbRiPDo-6e" version="14.9.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1466" dy="515" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -19,7 +19,7 @@
         <mxCell id="ztDZccjWxCGLr9I1HGoE-4" value="Filme" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="7" y="291" width="160" height="144" as="geometry" />
         </mxCell>
-        <mxCell id="ztDZccjWxCGLr9I1HGoE-5" value="- titulo: String &#xa;- duracao: Time&#xa;- tipoProducao: String &#xa;- tipoAudio: String [] &#xa;- permite3D: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-4" vertex="1">
+        <mxCell id="ztDZccjWxCGLr9I1HGoE-5" value="- titulo: String &#xa;- duracao: Time&#xa;- tipoProducao: String &#xa;- tipoAudio: String[] &#xa;- permite3D: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-4" vertex="1">
           <mxGeometry y="26" width="160" height="84" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-4" vertex="1">
@@ -49,7 +49,7 @@
         <mxCell id="ztDZccjWxCGLr9I1HGoE-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
           <mxGeometry y="134" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="ztDZccjWxCGLr9I1HGoE-15" value="+ taxa_ocupacao(): double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
+        <mxCell id="ztDZccjWxCGLr9I1HGoE-15" value="+ taxaOcupacao(): double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
           <mxGeometry y="142" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-25" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;é formado por&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=0;fontSize=11;rotation=-20;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
