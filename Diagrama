@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-07-18T15:35:54.124Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.166 Safari/537.36" etag="dQUkbRG7kwVyGFwahd05" version="14.9.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-07-18T15:41:11.044Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.166 Safari/537.36" etag="j1HGMpGdY_pCNF-KYoNy" version="14.9.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1679" dy="1255" grid="0" gridSize="10" guides="0" tooltips="0" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1150" dy="901" grid="0" gridSize="10" guides="0" tooltips="0" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -29,7 +29,7 @@
           <mxGeometry y="120" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-8" value="Cinema" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="10" y="476" width="330" height="280" as="geometry" />
+          <mxGeometry x="10" y="476" width="330" height="218" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-9" value="- faturamentoInteiras: double&#xa;- faturamentoInteiras3D: double&#xa;- faturamentoMeias: double&#xa;- faturamentoMeias3D: double&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
           <mxGeometry y="26" width="330" height="72" as="geometry" />
@@ -37,8 +37,8 @@
         <mxCell id="ztDZccjWxCGLr9I1HGoE-10" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
           <mxGeometry y="98" width="330" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="ztDZccjWxCGLr9I1HGoE-11" value="+ getFaturamentoInteiras(): double&#xa;+ getFaturamentoInteiras3D(): double&#xa;+ getFaturamentoMeias(): double&#xa;+ getFaturamentoMeias3D(): double&#xa;+ getSessoes(): Sessao[]&#xa;+ getSalas(): Sala[]&#xa;+ getFilmes(): Filme[]&#xa;+ venderIngresso(Sessao, tipoIngresso, poltrona): boolean&#xa;+ cancelarVenda(Sessao, poltrona): boolean&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
-          <mxGeometry y="116" width="330" height="164" as="geometry" />
+        <mxCell id="ztDZccjWxCGLr9I1HGoE-11" value="+ getFaturamento(): String&#xa;+ getSessoes(): Sessao[]&#xa;+ getSalas(): Sala[]&#xa;+ getFilmes(): Filme[]&#xa;+ venderIngresso(Sessao, tipoIngresso, poltrona): boolean&#xa;+ cancelarVenda(Sessao, poltrona): boolean&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
+          <mxGeometry y="116" width="330" height="102" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-12" value="Sessao" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="280" y="-10" width="220" height="290" as="geometry" />
