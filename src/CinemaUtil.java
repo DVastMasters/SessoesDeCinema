@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalTime;
     
@@ -163,6 +164,10 @@ public class CinemaUtil{
     public static void definirSessao(){
         Filme filme;
         Sala sala;
+        int horarioHora;
+        int horarioMinuto;
+        LocalTime horario;
+        boolean exibicao3D;
         int op;
 
         if(cinema.getFilmes().length == 0) {
@@ -214,8 +219,10 @@ public class CinemaUtil{
         System.out.println("\nÉ necessário definir o horário da sessão.");
 
         System.out.print("Por favor, informe a hora que a sessão irá acontecer (0 - 23): ");
-        op = scanner.nextInt();
+        op = scanner.nextInt();        
  
+        System.out.print("Agora, informe os minutos (0 - 59): ");
+        op = scanner.nextInt();
     }
 
     public static void definirFilme() {
@@ -227,7 +234,9 @@ public class CinemaUtil{
         boolean permite3D = false;
             
         System.out.print("\nDigite o nome do filme: ");
-        tituloFilme = scanner.nextLine();
+        tituloFilme = scanner.next();
+
+        scanner.next();
 
         System.out.print("\nDigite a duração do filme (em minutos): ");
         duracao = scanner.nextInt();
@@ -356,6 +365,7 @@ public class CinemaUtil{
 
         for(int i = 0; i < filmes.length; i++){ 
             String perm3D = null;
+            String tipoAudio;
 
             if(filmes[i].getPermite3D()){
                 perm3D = "Disponível";
@@ -363,7 +373,7 @@ public class CinemaUtil{
                 perm3D = "Não disponível";
             }
             
-            System.out.println("| Opção " + (i + 1) + filmes[i].getTitulo() + " | " + filmes[i].getTipoAudio() + " | " + filmes[i].getTipoProducao()+ " | " + filmes[i].getDuracao() + " | "  + perm3D + " |");
+            System.out.println("| Opção " + (i + 1) + filmes[i].getTitulo() + " | " + Arrays.toString(filmes[i].getTipoAudio()) + " | " + filmes[i].getTipoProducao()+ " | " + filmes[i].getDuracao() + " | "  + perm3D + " |");
         }
 
     }
