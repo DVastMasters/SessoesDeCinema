@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-07-19T22:29:40.616Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.166 Safari/537.36" etag="K-RQfrBO28_Xo34uwoQ-" version="14.9.0" type="github">
+<mxfile host="app.diagrams.net" modified="2021-07-23T02:47:28.961Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.166 Safari/537.36" etag="Jc1xo0XUnYiLFKWi9ORK" version="14.9.0" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1156" dy="908" grid="0" gridSize="10" guides="0" tooltips="0" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1253" dy="895" grid="0" gridSize="10" guides="0" tooltips="0" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -29,7 +29,7 @@
           <mxGeometry y="120" width="220" height="160" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-8" value="Cinema" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="-320" y="320" width="330" height="218" as="geometry" />
+          <mxGeometry x="-320" y="320" width="330" height="272" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-9" value="- faturamentoInteiras: double&#xa;- faturamentoInteiras3D: double&#xa;- faturamentoMeias: double&#xa;- faturamentoMeias3D: double&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
           <mxGeometry y="26" width="330" height="72" as="geometry" />
@@ -37,20 +37,20 @@
         <mxCell id="ztDZccjWxCGLr9I1HGoE-10" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
           <mxGeometry y="98" width="330" height="18" as="geometry" />
         </mxCell>
-        <mxCell id="ztDZccjWxCGLr9I1HGoE-11" value="+ getFaturamento(): String&#xa;+ getSessoes(): Sessao[]&#xa;+ getSalas(): Sala[]&#xa;+ getFilmes(): Filme[]&#xa;+ venderIngresso(sessao, tipoIngresso, poltrona): boolean&#xa;+ cancelarVenda(sessao, poltrona): boolean&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
-          <mxGeometry y="116" width="330" height="102" as="geometry" />
+        <mxCell id="ztDZccjWxCGLr9I1HGoE-11" value="+ getFaturamento(): String //del&#xa;+ getFaturamentoInteiras(): double //add&#xa;+ getFaturamentoInteiras3D(): double //add&#xa;+ getFaturamentoMeias(): double //add&#xa;+ getFaturamentoMeias3D(): double //add&#xa;+ getSessoes(): Sessao[]&#xa;+ getSalas(): Sala[]&#xa;+ getFilmes(): Filme[]&#xa;+ venderIngresso(sessao, tipoIngresso, poltrona): boolean&#xa;+ cancelarVenda(sessao, poltrona): boolean&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-8" vertex="1">
+          <mxGeometry y="116" width="330" height="156" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-12" value="Sessao" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="-48" y="-223" width="220" height="305" as="geometry" />
+          <mxGeometry x="-100" y="-222" width="317" height="324" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-13" value="- horario: LocalTime&#xa;- valorIngresso: double&#xa;- poltronas: String[]&#xa;- exibicao3D: boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
-          <mxGeometry y="26" width="220" height="70" as="geometry" />
+          <mxGeometry y="26" width="317" height="70" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
-          <mxGeometry y="96" width="220" height="8" as="geometry" />
+          <mxGeometry y="96" width="317" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="ztDZccjWxCGLr9I1HGoE-15" value="+ getHorario(): LocalTime&#xa;+ getValorIngresso(): double&#xa;+ getPoltronas(): String[]&#xa;+ getSala(): sala&#xa;+ getFilme(): filme&#xa;+ getExibicao3D(): boolean&#xa;+ setHorario(horario): void&#xa;+ setValorIngresso(valorIngresso): void&#xa;+ setSala(sala): void&#xa;+ setFilme(filme): filme&#xa;+ setExibicao3D(exibicao3D): void&#xa;+ taxaOcupacao(): double&#xa;+ poltronasLivres(): String&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
-          <mxGeometry y="104" width="220" height="201" as="geometry" />
+        <mxCell id="ztDZccjWxCGLr9I1HGoE-15" value="+ getHorario(): LocalTime&#xa;+ getValorIngresso(): double&#xa;+ getPoltronas(): String[]&#xa;+ getSala(): sala&#xa;+ getFilme(): filme&#xa;+ getExibicao3D(): boolean&#xa;+ setHorario(horario): void&#xa;+ setValorIngresso(valorIngresso): void&#xa;+ setSala(sala): void&#xa;+ setFilme(filme): filme&#xa;+ setExibicao3D(exibicao3D): void&#xa;+ taxaOcupacao(): double&#xa;+ poltronasLivres(): String&#xa;+ ocuparPoltrona(posicao, tipoIngresso): boolean //add&#xa;+ liberarPoltrona(posicao): boolean //add" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ztDZccjWxCGLr9I1HGoE-12" vertex="1">
+          <mxGeometry y="104" width="317" height="220" as="geometry" />
         </mxCell>
         <mxCell id="NqPrLTP3bpqxLTZ1oYYX-10" value="" style="group" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1" connectable="0">
           <mxGeometry y="170" width="134" height="76" as="geometry" />
@@ -121,10 +121,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="NqPrLTP3bpqxLTZ1oYYX-1" value="- sessoes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="74" y="88" width="55" height="12.965517241379313" as="geometry" />
+          <mxGeometry x="74" y="106" width="55" height="12.965517241379313" as="geometry" />
         </mxCell>
         <mxCell id="ztDZccjWxCGLr9I1HGoE-32" value="&lt;span style=&quot;font-size: 11px&quot;&gt;0..*&lt;/span&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=0;fontSize=11;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="27" y="90" width="21" height="12.965517241379313" as="geometry" />
+          <mxGeometry x="28" y="107" width="21" height="12.965517241379313" as="geometry" />
         </mxCell>
         <mxCell id="9Or4MUI-9ukFWySfUehK-5" value="" style="endArrow=blockThin;endFill=1;endSize=10;html=1;labelBorderColor=none;fontStyle=0;exitX=-0.016;exitY=0.196;exitDx=0;exitDy=0;exitPerimeter=0;startArrow=none;entryX=1.002;entryY=0.022;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="9Or4MUI-9ukFWySfUehK-3" target="ztDZccjWxCGLr9I1HGoE-11" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
