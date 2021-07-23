@@ -17,7 +17,7 @@ public class Cinema {
         sessoes = new ArrayList<Sessao>();
     }
 
-	public void resetar(){
+	public void resetar(){ //Extra
 		faturamentoInteiras = 0;
 		faturamentoInteiras3D = 0;
         faturamentoMeias = 0;

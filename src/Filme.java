@@ -2,11 +2,11 @@ import java.time.LocalTime;
 
 public class Filme {
 	private String titulo, tipoProducao;
-	private LocalTime duracao;
+	private int duracao;
 	private String[] tipoAudio;
 	private boolean permite3D;
 
-	public Filme(String titulo, LocalTime duracao, String tipoProducao, String[] tipoAudio, boolean permite3D) {
+	public Filme(String titulo, int duracao, String tipoProducao, String[] tipoAudio, boolean permite3D) {
 		this.titulo = titulo;
 		this.duracao = duracao;
 		this.tipoProducao = tipoProducao;
@@ -18,7 +18,7 @@ public class Filme {
 		return titulo;
 	}
 
-	public LocalTime getDuracao() {
+	public int getDuracao() {
 		return duracao;
 	}
 
@@ -38,7 +38,7 @@ public class Filme {
 		this.titulo = titulo;
 	}
 
-	public void setDuracao(LocalTime duracao) {
+	public void setDuracao(int duracao) {
 		this.duracao = duracao;
 	}
 
