@@ -85,7 +85,7 @@ public class CinemaUtil{
 						lerFilmes();
 						break;
 					case 4:
-						if(cinema.getSessoes().length != 0) {
+						if(cinema.getSessoes().length == 0) {
 							System.out.println("É necessário criar uma sessão antes de iniciar as vendas");
 							pausar();	
 						} else {
