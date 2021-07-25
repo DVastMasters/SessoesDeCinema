@@ -7,14 +7,15 @@ public class Sessao {
     private double valorIngresso;
     private char[] poltronas; //l = livre; m = meia; i = inteira
     private boolean exibicao3D;
+    private String tipoAudio;
 
-    public Sessao(Filme filme, Sala sala, LocalTime horario, double valorIngresso, char[] poltronas, boolean exibicao3D){
+    public Sessao(Filme filme, Sala sala, LocalTime horario, double valorIngresso, boolean exibicao3D, String tipoAudio){
         this.filme = filme;
         this.sala = sala;
         this.horario = horario;
         this.valorIngresso = valorIngresso;
-        this.poltronas = poltronas; 
         this.exibicao3D = exibicao3D;
+        this.tipoAudio = tipoAudio;
 
         poltronas = new char[sala.getCapacidade()]; // = String[10], por exemplo
     }
@@ -91,6 +92,10 @@ public class Sessao {
         return exibicao3D;
     }
 
+    public String getTipoAudio(){
+        return tipoAudio;
+    }
+
     public void setHorario(LocalTime horario){
         this.horario = horario; 
     }
@@ -109,5 +114,9 @@ public class Sessao {
 
     public void setExibicao3D(boolean exibicao3D){
         this.exibicao3D = exibicao3D; 
+    }
+
+    public void setTipoAudio(String tipoAudio){
+        this.tipoAudio = tipoAudio;
     }
 }
