@@ -31,12 +31,24 @@ public class Cinema {
         salas.add(sala);
     }
 
+    public void removerSala(Sala sala) {
+        salas.remove(sala);
+    }
+
     public void novoFilme(Filme filme) { //Extra
         filmes.add(filme);
     }
 
+    public void removerFilme(Filme filme) {
+        filmes.remove(filme);
+    }
+
     public void novaSessao(Sessao sessao) { //Extra
         sessoes.add(sessao);
+    }
+
+    public void removerSessao(Sessao sessao) {
+        sessoes.remove(sessao);
     }
 
     public boolean venderIngresso(Sessao sessao, char tipoIngresso, int poltrona){               

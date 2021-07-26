@@ -1,5 +1,3 @@
-import java.time.LocalTime;
-
 public class Filme {
 	private String titulo, tipoProducao;
 	private int duracao;
