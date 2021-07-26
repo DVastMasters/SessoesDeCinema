@@ -9,7 +9,7 @@ public class CinemaUtil{
     private static int opcaoInt=0;
     private static double opcaoDouble=0.0;
     private static String temp="";
-    private static boolean loop = true;
+    private static boolean loop = false;
     private static int ponteiro=-1;
 
     public static void main(String[] args){
@@ -560,11 +560,11 @@ public class CinemaUtil{
         int capacidade = 0;
 
         System.out.print("\nDigite o número da sala: ");
-        boolean loop = false;
         do{
             leitor(1, 1000, 'i');
             numSala = opcaoInt;
-
+            
+            loop = false;
             for(int i=0; i < cinema.getSalas().length; i++){
                 if(cinema.getSalas()[i].getNumSala() == numSala){
                     System.out.print("\nEsta sala já foi definida, defina outra: ");
@@ -609,10 +609,10 @@ public class CinemaUtil{
         switch(opcaoInt) {
             case 1:
                 System.out.print("\nDigite o novo número: ");
-                boolean loop = false;
                 do{
                     leitor(1, 1000, 'i');
-        
+
+                    loop = false;        
                     for(int i=0; i < cinema.getSalas().length; i++){
                         if(cinema.getSalas()[i].getNumSala() == opcaoInt && cinema.getSalas()[i] != sala){ //Já existe uma sala com esse número e não é a que está sendo modificada.
                             System.out.println("\nEsta sala já foi definida, defina outra: ");
@@ -674,22 +674,19 @@ public class CinemaUtil{
             System.out.println("| 4 - Voltar.                                                                                   |");
             System.out.println("-------------------------------------------------------------------------------------------------");
 
-            System.out.println("\nDigite o número da opção desejada: ");
+            System.out.print("\nDigite o número da opção desejada: ");
             leitor(1, 4, 'i');
 
             switch(opcaoInt) {
                 case 1:
-                    limparTela();
                     criarFilme();
                     gerenciarFilmes();
                     break;
                 case 2:
-                    limparTela();
                     modificarFilme();
                     gerenciarFilmes();
                     break;
                 case 3:
-                    limparTela();
                     removerFilme();
                     gerenciarFilmes();
             }
@@ -705,23 +702,23 @@ public class CinemaUtil{
         System.out.println("| N° |           TITULO           |       TIPO DE ÁUDIO      |     TIPO DE PRODUÇÃO      |     DURAÇÃO    |       3D      |");
         System.out.println("|-------------------------------------------------------------------------------------------------------------------------|");
         for(int i = 0; i < filmes.length; i++){ 
-            String perm3D = null;
+            String permite3D = null;
 
             if(filmes[i].getPermite3D()){
-                perm3D = "Disponível";
+                permite3D = "Disponível";
             }else{
-                perm3D = "Não disponível";
+                permite3D = "Não disponível";
             }
 
             System.out.println("| " + (i + 1) + " | " + filmes[i].getTitulo() + " | " + Arrays.toString(filmes[i].getTipoAudio()) + 
-                               "| " + filmes[i].getTipoProducao()+ " | " + filmes[i].getDuracao() + " | "  + perm3D + " |");
+                               "| " + filmes[i].getTipoProducao()+ " | " + filmes[i].getDuracao() + " | "  + permite3D + " |");
         }
 
     }
 
     public static void criarFilme() {
         //Variáveis temporárias para o construtor de Filme
-        String tituloFilme="";
+        String tituloFilme;
         int duracao;
         String tipoProducao;
         boolean permite3D;
@@ -730,16 +727,16 @@ public class CinemaUtil{
         System.out.print("\nDigite o nome do filme: ");
         do{
             temp = scanner.nextLine();
-            
+            loop=false;
             for(int i=0; i < cinema.getFilmes().length; i++) {
-                loop=false;
-                if(cinema.getFilmes()[ponteiro].getTitulo() == temp) {
+                if(cinema.getFilmes()[i].getTitulo() == temp) {
                     System.out.print("\nJá existe um filme com esse nome, digite outro: ");
                     loop=true;
                     break;
                 }
             }
         } while(loop);
+        tituloFilme = temp;
 
         System.out.print("\nDigite a duração do filme (em minutos): ");
         leitor(1, 1000, 'i');
