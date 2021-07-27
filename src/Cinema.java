@@ -1,20 +1,20 @@
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Cinema {
     private double faturamentoInteiras, faturamentoInteiras3D, faturamentoMeias, faturamentoMeias3D;
-    private Collection<Sala> salas;
-    private Collection<Filme> filmes;
-    private Collection<Sessao> sessoes;
+    private ArrayList<Sala> salas;
+    private ArrayList<Filme> filmes;
+    private ArrayList<Sessao> sessoes;
 
     public Cinema(){
         faturamentoInteiras = 0;
         faturamentoInteiras3D = 0;
         faturamentoMeias = 0;
         faturamentoMeias3D = 0;
-        salas = new ArrayList<Sala>();
-        filmes = new ArrayList<Filme>();
-        sessoes = new ArrayList<Sessao>();
+        salas = new ArrayList<>();
+        filmes = new ArrayList<>();
+        sessoes = new ArrayList<>();
     }
 
 	public void resetar(){ //Extra
@@ -29,6 +29,7 @@ public class Cinema {
 
     public void novaSala(Sala sala) { //Extra
         salas.add(sala);
+        Collections.sort(salas);
     }
 
     public void removerSala(Sala sala) {
@@ -37,6 +38,7 @@ public class Cinema {
 
     public void novoFilme(Filme filme) { //Extra
         filmes.add(filme);
+        Collections.sort(filmes);
     }
 
     public void removerFilme(Filme filme) {
@@ -45,61 +47,70 @@ public class Cinema {
 
     public void novaSessao(Sessao sessao) { //Extra
         sessoes.add(sessao);
+        Collections.sort(sessoes);
+    }
 
     public void removerSessao(Sessao sessao) {
         sessoes.remove(sessao);
     }
 
     public boolean venderIngresso(Sessao sessao, char tipoIngresso, int poltrona){               
-        boolean boo = true;
 
-        if(sessao.ocuparPoltrona(poltrona, tipoIngresso)) { //É o mesmo que sessao.ocuparPoltrona(poltrona, tipoIngresso) == True
-            if(sessao.getExibicao3D()) {                    //É o mesmo que sessao.getExibicao3D() == True
+        if(sessao.ocuparPoltrona(poltrona, tipoIngresso)) { //Poltrona ocupada com sucesso.
+
+            if(sessao.getExibicao3D()) { //A sessão é 3D.
+
                 if(tipoIngresso == 'i') {
                     faturamentoInteiras3D += sessao.getValorIngresso();
                 } else {
                     faturamentoMeias3D += sessao.getValorIngresso() / 2;
                 }
-            } else {                                        //sessao.getExibicao3D() == False
+
+            } else {                       
+
                 if(tipoIngresso == 'i') {
                     faturamentoInteiras += sessao.getValorIngresso();
                 } else {
                     faturamentoMeias += sessao.getValorIngresso() / 2;
                 }
             }
+
         } else {
-            boo = false;
+            return false;
         }
         
-        return boo;
+        return true;
     }
 
     public boolean cancelarVenda(Sessao sessao, int poltrona){
-        boolean boo = true;
-        char tipoIngresso = sessao.getPoltronas()[poltrona];
+        char tipoIngresso = sessao.getPoltronas()[poltrona]; //Salva o tipo de ingresso que será sobrescrito.
 
-        if(sessao.liberarPoltrona(poltrona)) {
-            if(sessao.getExibicao3D()) {                    //sessao.getExibicao3D() == True
+        if(sessao.liberarPoltrona(poltrona)) { //Poltrona liberada com sucesso.
+
+            if(sessao.getExibicao3D()) {    //A sessão é 3D.    
+
                 if(tipoIngresso == 'i') {
                     faturamentoInteiras3D -= sessao.getValorIngresso();
                 } else {
                     faturamentoMeias3D -= sessao.getValorIngresso() / 2;
                 }
-            } else {                                        //sessao.getExibicao3D() == False
+
+            } else {
                 if(tipoIngresso == 'i') {
                     faturamentoInteiras -= sessao.getValorIngresso();
                 } else {
                     faturamentoMeias -= sessao.getValorIngresso() / 2;
                 }
             }
+
         } else {
-            boo = false;
+            return false;
         }
 
-        return boo;
+        return true;
     }
 
-    public double getFaturamentoInteiras(){                 //Mundança de planos, acredito que assim vai ser melhor.
+    public double getFaturamentoInteiras(){
         return faturamentoInteiras;
     }
 
@@ -115,16 +126,16 @@ public class Cinema {
         return faturamentoMeias3D;
     }
 
-    public Sala[] getSalas(){
-        return salas.toArray(new Sala[salas.size()]);
+    public ArrayList<Sala> getSalas(){
+        return salas;
     }
 
-    public Filme[] getFilmes(){
-        return filmes.toArray(new Filme[filmes.size()]);
+    public ArrayList<Filme> getFilmes(){
+        return filmes;
     }
 
-    public Sessao[] getSessoes(){
-        return sessoes.toArray(new Sessao[sessoes.size()]);
+    public ArrayList<Sessao> getSessoes(){
+        return sessoes;
     }
 
 }

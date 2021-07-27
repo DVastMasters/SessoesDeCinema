@@ -1,6 +1,6 @@
  import java.time.LocalTime;
 
-public class Sessao {
+public class Sessao implements Comparable<Sessao>{
     private Filme filme;
     private Sala sala;
     private LocalTime horario;
@@ -17,84 +17,89 @@ public class Sessao {
         this.exibicao3D = exibicao3D;
         this.tipoAudio = tipoAudio;
 
-        poltronas = new char[sala.getCapacidade()]; // = String[10], por exemplo
-        for(int i=0; i < poltronas.length; i++) {
+        poltronas = new char[sala.getCapacidade()];
+        for(int i=0; i < poltronas.length; i++) { //Inicializando todas as poltronas como livres.
             poltronas[i] = 'l';
         }
     }
 
     public boolean ocuparPoltrona(int posicao, char tipoIngresso) { // Extra
-        boolean boo=true;
 
         if(poltronas[posicao] == 'l') {
             poltronas[posicao] = tipoIngresso;
+            return true;
         } else {
-            boo = false;
+            return false;
         }
 
-        return boo;
     }
 
     public boolean liberarPoltrona(int posicao) { // Extra
-        boolean boo=true;
 
         if(poltronas[posicao] != 'l') {
             poltronas[posicao] = 'l';
+            return true;
         } else {
-            boo = false;
+            return false;
         }
-        
-        return boo;
+
     }
 
     public double taxaOcupacao(){
         double ocupados=0;
-        
-        for(int i=0; i < poltronas.length; i++) {
-            if(poltronas[i] != 'l') { // == m ou == i
-                ocupados++;
-            }
+
+        for (char p : poltronas) {
+            if(p != 'l')
+                ocupados++;         
         }
 
         return ocupados / sala.getCapacidade();
     }
    
     public String poltronasLivres(){
-        int poltronasLivres = 0;
-        String poltronasNum = "|  ";
+        int quantidade = 0;
+        String poltronasLivres = "|  ";
+
         for(int i = 0; i < poltronas.length; i++){
+
             if(poltronas[i] == 'l'){
-                poltronasLivres++;
-                if (i<9){ //Poltrona 10
-                    poltronasNum += " " + (i+1) + "  |  ";    
+                quantidade++;
+
+                if (i<9){
+                    poltronasLivres += " " + (i+1) + "  |  ";    
                 } else {
-                    poltronasNum += (i+1) + "  |  ";
+                    poltronasLivres += (i+1) + "  |  ";
                 }
-                if(i % 9 == 0 && i != 0) {
-                    poltronasNum += "\n|  ";
+
+                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                    poltronasLivres += "\n|  ";
                 }
             }
         }
-        return "Quantidade de poltronas livres: " + poltronasLivres + "\n   > Poltronas <   \n" + poltronasNum;
+        return "Quantidade de poltronas livres: " + quantidade + "\n   > Poltronas <   \n" + poltronasLivres;
     }
 
     public String poltronasOcupadas(){
-        int poltronasOcupadas = 0;
-        String poltronasNum = "|  ";
+        int quantidade = 0;
+        String poltronasOcupadas = "|  ";
+
         for(int i = 0; i < poltronas.length; i++){
+
             if(poltronas[i] != 'l'){
-                poltronasOcupadas++;
-                if (i<9){ //Poltrona 10
-                    poltronasNum += " " + (i+1) + "  |  ";    
+                quantidade++;
+
+                if (i<9){
+                    poltronasOcupadas += " " + (i+1) + "  |  ";    
                 } else {
-                    poltronasNum += (i+1) + "  |  ";    
+                    poltronasOcupadas += (i+1) + "  |  ";    
                 }
-                if(i % 9 == 0 && i != 0) {
-                    poltronasNum += "\n|  ";
+
+                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                    poltronasOcupadas += "\n|  ";
                 }
             }
         }
-        return "Quantidade de poltronas Ocupadas: " + poltronasOcupadas + "\n   > Poltronas <   \n" + poltronasNum;
+        return "Quantidade de poltronas Ocupadas: " + quantidade + "\n   > Poltronas <   \n" + poltronasOcupadas;
     }
 
     public LocalTime getHorario(){
@@ -147,5 +152,14 @@ public class Sessao {
 
     public void setTipoAudio(String tipoAudio){
         this.tipoAudio = tipoAudio;
+    }
+
+    @Override
+    public int compareTo(Sessao sessao) {
+        if(this.horario.toSecondOfDay() > sessao.horario.toSecondOfDay())
+            return 1;
+        if(this.horario.toSecondOfDay() < sessao.horario.toSecondOfDay())
+            return -1;
+        return 0;
     }
 }
