@@ -65,13 +65,13 @@ public class Sessao {
         for(int i = 0; i < poltronas.length; i++){
             if(poltronas[i] == 'l'){
                 poltronasLivres++;
-                if (i<11){
+                if (i<9){ //Poltrona 10
                     poltronasNum += " " + (i+1) + "  |  ";    
                 } else {
                     poltronasNum += (i+1) + "  |  ";
                 }
-                if(i % 10 == 0) {
-                    poltronasNum += "\n";
+                if(i % 9 == 0 && i != 0) {
+                    poltronasNum += "\n|  ";
                 }
             }
         }
@@ -84,13 +84,13 @@ public class Sessao {
         for(int i = 0; i < poltronas.length; i++){
             if(poltronas[i] != 'l'){
                 poltronasOcupadas++;
-                if (i<11){
+                if (i<9){ //Poltrona 10
                     poltronasNum += " " + (i+1) + "  |  ";    
                 } else {
                     poltronasNum += (i+1) + "  |  ";    
                 }
-                if(i % 10 == 0) {
-                    poltronasNum += "\n";
+                if(i % 9 == 0 && i != 0) {
+                    poltronasNum += "\n|  ";
                 }
             }
         }

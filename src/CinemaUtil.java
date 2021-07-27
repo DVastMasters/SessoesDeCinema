@@ -39,7 +39,6 @@ public class CinemaUtil{
                         break;
                     case 2:
                         lerSessoes();
-                        venderIngresso();
                         break;
                     case 3:
                         lerFaturamento();
@@ -143,6 +142,7 @@ public class CinemaUtil{
 
     /*MÉTODOS DE GERENCIAMENTO*/
     public static void gerenciarSessoes(){
+        limparTela();
         if(cinema.getSessoes().length == 0) {
 
             System.out.println("------------------------------------------------------");
@@ -158,7 +158,6 @@ public class CinemaUtil{
             leitor(1, 2, 'i');
 
             if(opcaoInt == 1){
-                limparTela();
                 criarSessao();
                 gerenciarSessoes();
             }
@@ -178,17 +177,14 @@ public class CinemaUtil{
 
             switch(opcaoInt) {
                 case 1:
-                    limparTela();
                     criarSessao();
                     gerenciarSessoes();
                     break;
                 case 2:
-                    limparTela();
                     modificarSessao();
                     gerenciarSessoes();
                     break;
                 case 3:
-                    limparTela();
                     removerSessao();
                     gerenciarSessoes();
             }
@@ -217,6 +213,7 @@ public class CinemaUtil{
                 System.out.println("|" + (i+1) + "| " + sessoes[i].getFilme().getTitulo() + " | " + sessoes[i].getSala().getNumSala() + " | " + sessoes[i].getHorario() + " | " 
                 + sessoes[i].getTipoAudio() + " | " + permite3D + " | R$" + df.format(sessoes[i].getValorIngresso()) + " | " + df.format(sessoes[i].taxaOcupacao()*100) + "% ");
             }
+            pausar();
         } else {
             System.out.println("------------------------------------------------------------------------------------------------------");
             System.out.println("|                                     SESSÕES DISPONÍVEIS                                            |");
@@ -295,8 +292,8 @@ public class CinemaUtil{
         System.out.println("-------------------------------------------------------------------------------");
 
         System.out.println("\nÉ necessário definir o horário da sessão.");
-        boolean loop = false;
         do {
+            loop = false;
             System.out.print("Por favor, informe a hora que a sessão irá acontecer (0 - 23): ");
             leitor(0, 23, 'i');
             horarioHora = opcaoInt;
@@ -307,15 +304,23 @@ public class CinemaUtil{
 
             horario = LocalTime.of(horarioHora, horarioMinuto, 0, 0);
             for(int i=0; i < cinema.getSessoes().length; i++) {
-                LocalTime horarioTemp = cinema.getSessoes()[i].getHorario(); //Horário já registrado.
+                int horarioInicial = cinema.getSessoes()[i].getHorario().toSecondOfDay(); //Horário que a sessão começa.
+                        int horarioFinal = horarioInicial + cinema.getSessoes()[i].getFilme().getDuracao() * 60; //Horário que a sessão acaba.
 
-                if(cinema.getSessoes()[i].getSala() == sala) {
-                    if(Math.abs(horarioTemp.toSecondOfDay() - horario.toSecondOfDay()) == 1200) {
-                        System.out.println("\nJá existe uma sessão neste horário, defina outro.");
+                if(cinema.getSessoes()[i].getSala() == sala) { //Sessão que ocorre na mesma sala.
+
+                    if(horarioInicial - horario.toSecondOfDay() == 0) {  //Horário iguais
+                        System.out.println("\nJá existe uma sessão definida para este horário, defina outro.");
                         loop = true;
-                    } else if(Math.abs(horarioTemp.toSecondOfDay() - horario.toSecondOfDay()) < 1200) {
+                        break;
+                    }  else if(horario.toSecondOfDay() < horarioFinal && horario.toSecondOfDay() > horarioInicial) {
+                        System.out.println("\nUma sessão estará sendo exibida neste horário. O horário definido é conflitante, defina outro.");
+                        loop = true;
+                        break;
+                    } else if(Math.abs(horarioFinal - horario.toSecondOfDay()) < 1200) {
                         System.out.println("\nUma sessão só pode ocorrer 20 minutos após a outra. O horário definido é conflitante, defina outro.");
                         loop = true;
+                        break;
                     }
                 }
             }
@@ -358,7 +363,7 @@ public class CinemaUtil{
         System.out.println("\n*Lembre-se, se o filme for reproduzido em 3D, haverá um incremento de 25% no valor digitado.");
 
         System.out.print("\nQual o valor do ingresso da sessão? ");
-        leitor(1, 100, 'd');
+        leitor(1, 1000, 'd');
         if(exibicao3D) {
             valorIngresso = opcaoDouble*1.25;
         } else {
@@ -425,10 +430,10 @@ public class CinemaUtil{
                 modificarSessao();    
                 break;
             case 3:
-                boolean loop = false;
                 LocalTime horario;
 
                 do {
+                    loop = false;
                     System.out.print("Por favor, informe a hora que a sessão irá acontecer (0 - 23): ");
                     leitor(0, 23, 'i');
                     int horarioHora = opcaoInt;
@@ -439,16 +444,25 @@ public class CinemaUtil{
 
                     horario = LocalTime.of(horarioHora, horarioMinuto, 0, 0);
                     for(int i=0; i < cinema.getSessoes().length; i++) {
-                        LocalTime horarioTemp = cinema.getSessoes()[i].getHorario(); //Horário já registrado.
+                        int horarioInicial = cinema.getSessoes()[i].getHorario().toSecondOfDay(); //Horário que a sessão começa.
+                        int horarioFinal = horarioInicial + cinema.getSessoes()[i].getFilme().getDuracao() * 60; //Horário que a sessão acaba.
 
                         if(cinema.getSessoes()[i].getSala() == sessao.getSala()) { //Sessão que ocorre na mesma sala.
+
                             if(cinema.getSessoes()[i] != sessao) { //A sessão encotrada é diferente da sessão que está sendo modificada.
-                                if(Math.abs(horarioTemp.toSecondOfDay() - horario.toSecondOfDay()) == 1200) {
-                                    System.out.println("\nJá existe uma sessão neste horário, defina outro.");
+
+                                if(horarioInicial - horario.toSecondOfDay() == 0) {  //Horário iguais
+                                    System.out.println("\nJá existe uma sessão definida para este horário, defina outro.");
                                     loop = true;
-                                } else if(Math.abs(horarioTemp.toSecondOfDay() - horario.toSecondOfDay()) < 1200) {
+                                    break;
+                                }  else if(horario.toSecondOfDay() < horarioFinal && horario.toSecondOfDay() > horarioInicial) {
+                                    System.out.println("\nUma sessão estará sendo exibida neste horário. O horário definido é conflitante, defina outro.");
+                                    loop = true;
+                                    break;
+                                } else if(Math.abs(horarioFinal - horario.toSecondOfDay()) < 1200) {
                                     System.out.println("\nUma sessão só pode ocorrer 20 minutos após a outra. O horário definido é conflitante, defina outro.");
                                     loop = true;
+                                    break;
                                 }
                             }
                         }
@@ -673,25 +687,33 @@ public class CinemaUtil{
         ponteiro = opcaoInt-1;
         sala = cinema.getSalas()[ponteiro];
 
+        opcaoInt = 1; //A sala será removida.
+
         boolean primeiraSessaoAfetada=false;
         for(int i=0; i < cinema.getSessoes().length; i++){
-            if(cinema.getSessoes()[i].getSala() == sala){
-                if(primeiraSessaoAfetada==false){
+
+            if(cinema.getSessoes()[i].getSala() == sala){ //Verifica se existem sessões com esta sala.
+
+                if(primeiraSessaoAfetada==false){ //Isso faz ele perguntar apenas uma vez (o loop pode encontrar várias sessões).
                     System.out.println("Existe(m) sessão(ões) que acontecerá(ão) nesta sala. Ao remover a sala, a(s) sessão(ões) também será(ão) excluida(s).");
                     System.out.println("\n1 - Sim\n2 - Não");
                     System.out.print("Tem certeza que deseja continuar?");
                     leitor(1, 2, 'i');
+
                     if(opcaoInt == 1) {
                         primeiraSessaoAfetada=true;
                         cinema.removerSessao(cinema.getSessoes()[i]);
-                        cinema.removerSala(cinema.getSalas()[ponteiro]);
-                    } else {
+                    } else { //opcaoInt == 2, a sala não será removida.
                         break;
                     }
                 } else {
                     cinema.removerSessao(cinema.getSessoes()[i]);
                 }
             }
+        }
+
+        if(opcaoInt == 1){
+            cinema.removerSala(cinema.getSalas()[ponteiro]);
         }
 
         ponteiro = -1; //Reseta ponteiro global
@@ -1048,25 +1070,34 @@ public class CinemaUtil{
         ponteiro = opcaoInt-1;
         filme = cinema.getFilmes()[ponteiro];
 
+        opcaoInt = 1; //O filme será removido.
+
         boolean primeiraSessaoAfetada=false;
-        for(int i=0; i < cinema.getFilmes().length; i++){
-            if(cinema.getSessoes()[i].getFilme() == filme){
-                if(primeiraSessaoAfetada==false){
+        for(int i=0; i < cinema.getSessoes().length; i++){
+
+            if(cinema.getSessoes()[i].getFilme() == filme){ //Verifica se existem sessões com este filme.
+
+                if(primeiraSessaoAfetada==false){ //Faz a pergunta apenas uma primeira vez (o loop pode encontrar várias sessões).
                     System.out.println("Existe(m) sessão(ões) que irá(ão) exibir este filme. Ao remover o filme, a(s) sessão(ões) também será(ão) excluida(s).");
                     System.out.println("\n1 - Sim\n2 - Não");
                     System.out.print("Tem certeza que deseja continuar?");
                     leitor(1, 2, 'i');
-                    if(opcaoInt == 1) {
+
+                    if(opcaoInt == 1) { 
                         primeiraSessaoAfetada=true;
                         cinema.removerSessao(cinema.getSessoes()[i]);
-                        cinema.removerFilme(cinema.getFilmes()[ponteiro]);
-                    } else {
+                    } else { //O usuário desistiu. Neste momento, opcaoInt == 2
                         break;
                     }
+
                 } else {
                     cinema.removerSessao(cinema.getSessoes()[i]);
                 }
             }
+        }
+
+        if(opcaoInt == 1){
+            cinema.removerFilme(cinema.getFilmes()[ponteiro]);
         }
 
         ponteiro = -1; //Reseta ponteiro global
@@ -1187,12 +1218,13 @@ public class CinemaUtil{
     }
     
     public static void limparTela() {
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<100; i++) {
             System.out.println();
         }
     }
 
     public static void pausar() {
+        System.out.println();
         System.out.println("Aperte enter para continuar...");
         temp = scanner.nextLine();
     }

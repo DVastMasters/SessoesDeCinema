@@ -45,7 +45,6 @@ public class Cinema {
 
     public void novaSessao(Sessao sessao) { //Extra
         sessoes.add(sessao);
-    }
 
     public void removerSessao(Sessao sessao) {
         sessoes.remove(sessao);
