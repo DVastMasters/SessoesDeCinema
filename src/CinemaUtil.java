@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalTime;
+import java.text.DecimalFormat;
 
 public class CinemaUtil{
     private static boolean aberto = false;
@@ -11,6 +12,7 @@ public class CinemaUtil{
     private static String temp="";
     private static boolean loop = false;
     private static int ponteiro=-1;
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
     public static void main(String[] args){
 
@@ -73,6 +75,7 @@ public class CinemaUtil{
                 }   
 
             } else {
+
                 System.out.println("------------------------------------------------------");
                 System.out.println("| -> A venda de ingressos ainda não foi iniciada! <- |");
                 System.out.println("|                                                    |");
@@ -111,6 +114,8 @@ public class CinemaUtil{
 
                             System.out.println("\nApós iniciar as vendas não será possível modificar e nem criar sessões.");
 
+                            System.out.print("Opção: ");
+                            leitor(1, 2, 'i');
                             if(opcaoInt == 1){ 
                                 aberto = true;
                             }
@@ -193,23 +198,45 @@ public class CinemaUtil{
     public static void lerSessoes() {
         Sessao[] sessoes = cinema.getSessoes();
 
-        System.out.println("------------------------------------------------------------------------------------------------------");
-        System.out.println("|                                     SESSÕES DISPONÍVEIS                                            |");
-        System.out.println("------------------------------------------------------------------------------------------------------");
-        System.out.println("| Nº |         FILME            |     SALA     |    HORÁRIO    |    ÁUDIO    |    3D    |   VALOR    |");
-        System.out.println("------------------------------------------------------------------------------------------------------");
-        for(int i = 0; i < sessoes.length; i++) {
-            String permite3D;
-            if(sessoes[i].getExibicao3D()){
-                permite3D = "Sim";
+        if(aberto) {
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("|                                     SESSÕES DISPONÍVEIS                                                                |");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("| Nº |         FILME            |     SALA     |    HORÁRIO    |    ÁUDIO    |    3D    |   VALOR    |  TAXA DE OCUPAÇÃO |");
+            System.out.println("--------------------------------------------------------------------------------------------------------------------------");
+            for(int i = 0; i < sessoes.length; i++) {
+                
+                String permite3D;
+                if(sessoes[i].getExibicao3D()){
+                    permite3D = "Sim";
+                }
+                else{
+                    permite3D = "Não";
+                }
+            
+                System.out.println("|" + (i+1) + "| " + sessoes[i].getFilme().getTitulo() + " | " + sessoes[i].getSala().getNumSala() + " | " + sessoes[i].getHorario() + " | " 
+                + sessoes[i].getTipoAudio() + " | " + permite3D + " | R$" + df.format(sessoes[i].getValorIngresso()) + " | " + df.format(sessoes[i].taxaOcupacao()*100) + "% ");
             }
-            else{
-                permite3D = "Não";
-            }
-        
-            System.out.println("|" + (i+1) + "| " + sessoes[i].getFilme().getTitulo() + " | " + sessoes[i].getSala().getNumSala() + " | " + sessoes[i].getHorario() + " | " 
-            + sessoes[i].getTipoAudio() + " | " + permite3D + " | R$" + sessoes[i].getValorIngresso());
-        }           
+        } else {
+            System.out.println("------------------------------------------------------------------------------------------------------");
+            System.out.println("|                                     SESSÕES DISPONÍVEIS                                            |");
+            System.out.println("------------------------------------------------------------------------------------------------------");
+            System.out.println("| Nº |         FILME            |     SALA     |    HORÁRIO    |    ÁUDIO    |    3D    |   VALOR    |");
+            System.out.println("------------------------------------------------------------------------------------------------------");
+            for(int i = 0; i < sessoes.length; i++) {
+
+                String permite3D;
+                if(sessoes[i].getExibicao3D()){
+                    permite3D = "Sim";
+                }
+                else{
+                    permite3D = "Não";
+                }
+            
+                System.out.println("|" + (i+1) + "| " + sessoes[i].getFilme().getTitulo() + " | " + sessoes[i].getSala().getNumSala() + " | " + sessoes[i].getHorario() + " | " 
+                + sessoes[i].getTipoAudio() + " | " + permite3D + " | R$" + df.format(sessoes[i].getValorIngresso()));
+            }       
+        }    
     }
 
     public static void criarSessao(){
@@ -469,7 +496,7 @@ public class CinemaUtil{
                 System.out.print("\nDigite o novo valor: ");
                 leitor(1, 1000, 'd');
 
-                if(sessao.getFilme().getPermite3D()) {
+                if(sessao.getExibicao3D()) {
                     opcaoDouble*=1.25;
                 }
 
@@ -491,6 +518,8 @@ public class CinemaUtil{
 
     public static void gerenciarSalas(){
         Sala[] salas = cinema.getSalas();
+        
+        limparTela();
 
         if(salas.length == 0){ //GERENCIAR SALAS - PRIMEIRA VEZ
             System.out.println("-------------------------------------------------------------------------------");
@@ -523,17 +552,14 @@ public class CinemaUtil{
 
             switch(opcaoInt) {
                 case 1:
-                    limparTela();
                     criarSalas();
                     gerenciarSalas();
                     break;
                 case 2:
-                    limparTela();
                     modificarSala();
                     gerenciarSalas();
                     break;
                 case 3:
-                    limparTela();
                     removerSala();
                     gerenciarSalas();
 
@@ -547,7 +573,7 @@ public class CinemaUtil{
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("|                              SALAS DISPONÍVEIS                              |");
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("|           NÚMERO DA SALA            |           CAPACIDADE DA SALA          |");
+        System.out.println("|  N° |        NÚMERO DA SALA          |           CAPACIDADE DA SALA         |");
         System.out.println("-------------------------------------------------------------------------------");
         for(int i = 0; i < salas.length; i++){ 
             System.out.println("| " + (i + 1) + " | " + salas[i].getNumSala() + " | " + salas[i].getCapacidade() + " |");
@@ -640,9 +666,35 @@ public class CinemaUtil{
     }
 
     public static void removerSala() {
+        Sala sala;
+
         System.out.print("\nQual sala deseja remover? ");
         leitor(1, cinema.getSalas().length, 'i');
-        cinema.removerSala(cinema.getSalas()[opcaoInt-1]);
+        ponteiro = opcaoInt-1;
+        sala = cinema.getSalas()[ponteiro];
+
+        boolean primeiraSessaoAfetada=false;
+        for(int i=0; i < cinema.getSessoes().length; i++){
+            if(cinema.getSessoes()[i].getSala() == sala){
+                if(primeiraSessaoAfetada==false){
+                    System.out.println("Existe(m) sessão(ões) que acontecerá(ão) nesta sala. Ao remover a sala, a(s) sessão(ões) também será(ão) excluida(s).");
+                    System.out.println("\n1 - Sim\n2 - Não");
+                    System.out.print("Tem certeza que deseja continuar?");
+                    leitor(1, 2, 'i');
+                    if(opcaoInt == 1) {
+                        primeiraSessaoAfetada=true;
+                        cinema.removerSessao(cinema.getSessoes()[i]);
+                        cinema.removerSala(cinema.getSalas()[ponteiro]);
+                    } else {
+                        break;
+                    }
+                } else {
+                    cinema.removerSessao(cinema.getSessoes()[i]);
+                }
+            }
+        }
+
+        ponteiro = -1; //Reseta ponteiro global
     }
 
     public static void gerenciarFilmes() {
@@ -836,7 +888,7 @@ public class CinemaUtil{
             ponteiro = opcaoInt-1;
         }
 
-        filme = cinema.getFilmes()[opcaoInt-1];
+        filme = cinema.getFilmes()[ponteiro];
 
         if(filme.getPermite3D()){
             permite3D = "Disponível em 3D";
@@ -882,9 +934,8 @@ public class CinemaUtil{
                 modificarFilme();
                 break;
             case 2: //Falta
-                
-
-                gerenciarFilmes();
+                modificarTipoAudio();
+                modificarFilme();
                 break;
             case 3:
                 System.out.println("-------------------------------------------------------------------------------");
@@ -902,7 +953,7 @@ public class CinemaUtil{
                     cinema.getFilmes()[ponteiro].setTipoProducao("Estrangeira");
                 }
 
-                gerenciarFilmes();
+                modificarFilme();
                 break;
             case 4:
                 System.out.print("\nDigite a nova duração do filme (em minutos): ");
@@ -910,7 +961,7 @@ public class CinemaUtil{
                 
                 cinema.getFilmes()[ponteiro].setDuracao(opcaoInt);
                 
-                gerenciarFilmes();
+                modificarFilme();
                 break;
             case 5:
                 System.out.println("O filme permite reprodução em 3D?");
@@ -925,7 +976,7 @@ public class CinemaUtil{
                     cinema.getFilmes()[ponteiro].setPermite3D(false);
                 }
 
-                gerenciarFilmes();
+                modificarFilme();
                 break;
             case 6:
                 ponteiro = -1;
@@ -933,21 +984,106 @@ public class CinemaUtil{
 
     }
 
+    public static void modificarTipoAudio(){
+        String[] tipoAudio;
+
+        System.out.println("-------------------------------------------------------------------------------");
+        System.out.println("|                  O filme vai possuir qual novo tipo de audio?               |");
+        System.out.println("|                                                                             |");
+        System.out.println("| 1 - Original                                                                |");
+        System.out.println("| 2 - Original com legenda                                                    |");
+        System.out.println("| 3 - Dublado                                                                 |");
+        System.out.println("| 4 - Original e original com legenda                                         |");
+        System.out.println("| 5 - Original e dublado                                                      |");
+        System.out.println("| 6 - Original com legenda e dublado                                          |");
+        System.out.println("| 7 - Original, original com legenda e dublado                                |");
+        System.out.println("-------------------------------------------------------------------------------");
+
+        System.out.print("\nDigite o número da opção desejada: ");
+        leitor(1, 7, 'i');
+        if(opcaoInt < 4) {
+            tipoAudio = new String[1];
+        } else if (opcaoInt < 7){
+            tipoAudio = new String[2];
+        } else {
+            tipoAudio = new String[3];
+        }
+
+        switch (opcaoInt) {
+            case 1:
+                tipoAudio[0] = "Original";
+                break;
+            case 2:
+                tipoAudio[0] = "Original com legenda";
+                break;
+            case 3:
+                tipoAudio[0] = "Dublado";
+                break;
+            case 4:
+                tipoAudio[0] = "Original";
+                tipoAudio[1] = "Original com legenda";
+                break;
+            case 5:
+                tipoAudio[0] = "Original";
+                tipoAudio[1] = "Dublado";
+                break;
+            case 6:
+                tipoAudio[0] = "Original com legenda";
+                tipoAudio[1] = "Dublado";
+                break;
+            case 7:
+                tipoAudio[0] = "Original";
+                tipoAudio[1] = "Original com legenda";
+                tipoAudio[2] = "Dublado";
+        }
+
+        cinema.getFilmes()[ponteiro].setTipoAudio(tipoAudio);
+    }
+
     public static void removerFilme() {
+        Filme filme;
+
         System.out.print("\nQual filme deseja remover? ");
         leitor(1, cinema.getFilmes().length, 'i');
-        cinema.removerFilme(cinema.getFilmes()[opcaoInt-1]);
+        ponteiro = opcaoInt-1;
+        filme = cinema.getFilmes()[ponteiro];
 
+        boolean primeiraSessaoAfetada=false;
+        for(int i=0; i < cinema.getFilmes().length; i++){
+            if(cinema.getSessoes()[i].getFilme() == filme){
+                if(primeiraSessaoAfetada==false){
+                    System.out.println("Existe(m) sessão(ões) que irá(ão) exibir este filme. Ao remover o filme, a(s) sessão(ões) também será(ão) excluida(s).");
+                    System.out.println("\n1 - Sim\n2 - Não");
+                    System.out.print("Tem certeza que deseja continuar?");
+                    leitor(1, 2, 'i');
+                    if(opcaoInt == 1) {
+                        primeiraSessaoAfetada=true;
+                        cinema.removerSessao(cinema.getSessoes()[i]);
+                        cinema.removerFilme(cinema.getFilmes()[ponteiro]);
+                    } else {
+                        break;
+                    }
+                } else {
+                    cinema.removerSessao(cinema.getSessoes()[i]);
+                }
+            }
+        }
+
+        ponteiro = -1; //Reseta ponteiro global
     }
     /*MÉTODOS DE GERENCIAMENTO*/
 
     /*MÉTODOS FINANCEIROS*/
     public static void venderIngresso() {
+        Sessao sessao;
+        char tipoIngresso;
+
         lerSessoes();
         System.out.print("\nDeseja vender um ingresso para qual sessão? ");
         leitor(1, cinema.getSessoes().length, 'i');
-        ponteiro = opcaoInt;
-        
+
+        sessao = cinema.getSessoes()[opcaoInt-1];
+
         System.out.println("------------------------------------------------------");
         System.out.println("|          -> Qual o tipo de ingresso? <-            |");
         System.out.println("|                                                    |");
@@ -955,20 +1091,54 @@ public class CinemaUtil{
         System.out.println("| 2 - Meio.                                          |");
         System.out.println("------------------------------------------------------");
 
-        System.out.print("\nDeseja vender um ingresso para qual sessão? ");
+        System.out.print("\nOpção: ");
         leitor(1, 2, 'i');
+        if(opcaoInt == 1){
+            tipoIngresso = 'i';
+        } else {
+            tipoIngresso = 'm';
+        }
 
+        do{
+            System.out.println(sessao.poltronasLivres());
+            System.out.println("Digite a poltrona desejada: ");
+            leitor(1, sessao.getSala().getCapacidade(), 'i');
+            loop = cinema.venderIngresso(sessao, tipoIngresso, opcaoInt-1); //Vendeu = true
+        } while(!loop); //loop == false
 
-
-
-
+        System.out.println("Venda realizada com sucesso!");
+        pausar();
+        opcaoInt=0;
     }
 
     public static void cancelarVenda() {
+        Sessao sessao;
+        lerSessoes();
+        System.out.print("\nDeseja cancelar venda para qual sessão? ");
+        leitor(1, cinema.getSessoes().length, 'i');
+        
+        sessao = cinema.getSessoes()[opcaoInt-1];
 
+        do{
+            System.out.println(sessao.poltronasOcupadas());
+            System.out.print("\nQual a poltrona a ser liberada? ");
+            leitor(1, sessao.getSala().getCapacidade(), 'i');
+            loop = cinema.cancelarVenda(sessao, opcaoInt-1);
+        } while (!loop);
+
+        System.out.println("Venda Cancelada!");
+        pausar();
+        opcaoInt = 0;
     }
 
     public static void lerFaturamento() {
+        System.out.println("\n                             > Sessões 3D < ");
+        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getFaturamentoInteiras3D());
+        System.out.println("Total de meio ingressos vendidos: " + cinema.getFaturamentoMeias3D());
+        System.out.println("\n                             > Sessões 2D < ");
+        System.out.println("\nTotal de ingresso do tipo inteiro vendidos: " + cinema.getFaturamentoInteiras());
+        System.out.println("Total de ingresso do tipo inteiro vendidos: " + cinema.getFaturamentoMeias());
+        pausar();
 
     }
     /*MÉTODOS FINANCEIROS*/

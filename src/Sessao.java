@@ -18,6 +18,9 @@ public class Sessao {
         this.tipoAudio = tipoAudio;
 
         poltronas = new char[sala.getCapacidade()]; // = String[10], por exemplo
+        for(int i=0; i < poltronas.length; i++) {
+            poltronas[i] = 'l';
+        }
     }
 
     public boolean ocuparPoltrona(int posicao, char tipoIngresso) { // Extra
@@ -58,14 +61,40 @@ public class Sessao {
    
     public String poltronasLivres(){
         int poltronasLivres = 0;
-        String poltronasNum = "[";
+        String poltronasNum = "|  ";
         for(int i = 0; i < poltronas.length; i++){
             if(poltronas[i] == 'l'){
                 poltronasLivres++;
-                poltronasNum += poltronas[i] + ", ";
+                if (i<11){
+                    poltronasNum += " " + (i+1) + "  |  ";    
+                } else {
+                    poltronasNum += (i+1) + "  |  ";
+                }
+                if(i % 10 == 0) {
+                    poltronasNum += "\n";
+                }
             }
         }
-        return "Quantidade de poltronas livres: " + poltronasLivres + "\n Poltronas: " + poltronasNum + "]";
+        return "Quantidade de poltronas livres: " + poltronasLivres + "\n   > Poltronas <   \n" + poltronasNum;
+    }
+
+    public String poltronasOcupadas(){
+        int poltronasOcupadas = 0;
+        String poltronasNum = "|  ";
+        for(int i = 0; i < poltronas.length; i++){
+            if(poltronas[i] != 'l'){
+                poltronasOcupadas++;
+                if (i<11){
+                    poltronasNum += " " + (i+1) + "  |  ";    
+                } else {
+                    poltronasNum += (i+1) + "  |  ";    
+                }
+                if(i % 10 == 0) {
+                    poltronasNum += "\n";
+                }
+            }
+        }
+        return "Quantidade de poltronas Ocupadas: " + poltronasOcupadas + "\n   > Poltronas <   \n" + poltronasNum;
     }
 
     public LocalTime getHorario(){
