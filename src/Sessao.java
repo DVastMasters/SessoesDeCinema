@@ -3,16 +3,18 @@
 public class Sessao implements Comparable<Sessao>{
     private Filme filme;
     private Sala sala;
-    private LocalTime horario;
+    private LocalTime horarioInicial;
+    private LocalTime horarioFinal;
     private double valorIngresso;
     private char[] poltronas; //l = livre; m = meia; i = inteira
     private boolean exibicao3D;
     private String tipoAudio;
 
-    public Sessao(Filme filme, Sala sala, LocalTime horario, double valorIngresso, boolean exibicao3D, String tipoAudio){
+    public Sessao(Filme filme, Sala sala, LocalTime horarioInicial, LocalTime horarioFinal, double valorIngresso, boolean exibicao3D, String tipoAudio){
         this.filme = filme;
         this.sala = sala;
-        this.horario = horario;
+        this.horarioInicial = horarioInicial;
+        this.horarioFinal = horarioFinal;
         this.valorIngresso = valorIngresso;
         this.exibicao3D = exibicao3D;
         this.tipoAudio = tipoAudio;
@@ -102,8 +104,20 @@ public class Sessao implements Comparable<Sessao>{
         return "Quantidade de poltronas Ocupadas: " + quantidade + "\n   > Poltronas <   \n" + poltronasOcupadas;
     }
 
-    public LocalTime getHorario(){
-        return horario;
+    public LocalTime getHorarioInicial(){
+        return horarioInicial;
+    }
+
+    public LocalTime getHorarioFinal(){
+        return horarioFinal;
+    }
+
+    public void setHorarioInicial(LocalTime horarioInicial){
+        this.horarioInicial = horarioInicial;
+    }
+
+    public void setHorarioFinal(LocalTime horarioFinal){
+        this.horarioFinal = horarioFinal;
     }
 
     public double getValorIngresso(){
@@ -130,10 +144,6 @@ public class Sessao implements Comparable<Sessao>{
         return tipoAudio;
     }
 
-    public void setHorario(LocalTime horario){
-        this.horario = horario; 
-    }
-
     public void setValorIngresso(double valorIngresso){
         this.valorIngresso = valorIngresso; 
     }
@@ -156,9 +166,9 @@ public class Sessao implements Comparable<Sessao>{
 
     @Override
     public int compareTo(Sessao sessao) {
-        if(this.horario.toSecondOfDay() > sessao.horario.toSecondOfDay())
+        if(this.horarioInicial.toSecondOfDay() > sessao.horarioInicial.toSecondOfDay())
             return 1;
-        if(this.horario.toSecondOfDay() < sessao.horario.toSecondOfDay())
+        if(this.horarioInicial.toSecondOfDay() < sessao.horarioInicial.toSecondOfDay())
             return -1;
         return 0;
     }
