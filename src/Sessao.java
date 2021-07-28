@@ -23,10 +23,10 @@ public class Sessao implements Comparable<Sessao>{
         }
     }
 
-    public boolean ocuparPoltrona(int posicao, char tipoIngresso) { // Extra
+    public boolean ocuparPoltrona(int poltrona, char tipoIngresso) {
 
-        if(poltronas[posicao] == 'l') {
-            poltronas[posicao] = tipoIngresso;
+        if(poltronas[poltrona] == 'l') {
+            poltronas[poltrona] = tipoIngresso;
             return true;
         } else {
             return false;
@@ -34,10 +34,10 @@ public class Sessao implements Comparable<Sessao>{
 
     }
 
-    public boolean liberarPoltrona(int posicao) { // Extra
+    public boolean liberarPoltrona(int poltrona) {
 
-        if(poltronas[posicao] != 'l') {
-            poltronas[posicao] = 'l';
+        if(poltronas[poltrona] != 'l') {
+            poltronas[poltrona] = 'l';
             return true;
         } else {
             return false;
