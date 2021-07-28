@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.text.DecimalFormat;
 
 public class CinemaUtil{
@@ -14,6 +15,7 @@ public class CinemaUtil{
     private static boolean loop = false;
     private static int ponteiro=-1;
     private static DecimalFormat df = new DecimalFormat("0.00");
+    private static DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("HH:mm");
 
     public static void main(String[] args){
 
@@ -62,7 +64,7 @@ public class CinemaUtil{
                         leitor(1, 2, 'i');
                         if(opcaoInt == 1){ 
                             aberto = false;
-                            cinema.resetar();
+                            cinema.fechar();
                         }
                         break;
                     case 6:
@@ -75,8 +77,10 @@ public class CinemaUtil{
 
                         System.out.println("Ao encerrar o programa, todos os dados serão apagados.");
                         leitor(1, 2, 'i');
-                        if(opcaoInt == 1) opcaoInt = 5;
-                }   
+                        if(opcaoInt == 1) {
+                            opcaoInt = 5;
+                        }
+                }       
 
             } else {
 
@@ -120,8 +124,10 @@ public class CinemaUtil{
 
                             System.out.print("Opção: ");
                             leitor(1, 2, 'i');
-                            if(opcaoInt == 1)
+                            if(opcaoInt == 1){
                                 aberto = true;
+                            }
+                        
 
                         }
                         break;
@@ -135,8 +141,9 @@ public class CinemaUtil{
 
                         System.out.println("Ao encerrar o programa, todos os dados serão apagados.");
                         leitor(1, 2, 'i');
-                        if(opcaoInt == 1)
+                        if(opcaoInt == 1){
                             opcaoInt = 5;
+                        }
                 }
             }
 
@@ -145,6 +152,7 @@ public class CinemaUtil{
 
     /*MÉTODOS DE GERENCIAMENTO*/
     public static void gerenciarSessoes(){
+        atualizarSessoes();
         limparTela();
 
         if(cinema.getSessoes().size() == 0) {
@@ -196,6 +204,7 @@ public class CinemaUtil{
     }
 
     public static void lerSessoes() {
+        atualizarSessoes();
         ArrayList<Sessao> sessoes = cinema.getSessoes();
 
         if(aberto) {
@@ -208,7 +217,9 @@ public class CinemaUtil{
                 Sessao sessao = sessoes.get(i);
                 
                 String permite3D = "Não";
-                if(sessao.getExibicao3D()) permite3D = "Sim";
+                if(sessao.getExibicao3D()) {
+                    permite3D = "Sim";
+                }
             
                 System.out.println("|" + (i+1) + "| " + sessao.getFilme().getTitulo() + " | " + sessao.getSala().getNumSala() + " | " + sessao.getHorario() + " | " 
                 + sessao.getTipoAudio() + " | " + permite3D + " | R$" + df.format(sessao.getValorIngresso()) + " | " + df.format(sessao.taxaOcupacao()*100) + "% ");
@@ -224,7 +235,9 @@ public class CinemaUtil{
                 Sessao sessao = sessoes.get(i);
                 
                 String permite3D = "Não";
-                if(sessao.getExibicao3D()) permite3D = "Sim";
+                if(sessao.getExibicao3D()) {
+                    permite3D = "Sim";
+                }
             
                 System.out.println("|" + (i+1) + "| " + sessao.getFilme().getTitulo() + " | " + sessao.getSala().getNumSala() + " | " + sessao.getHorario() + " | " 
                 + sessao.getTipoAudio() + " | " + permite3D + " | R$" + df.format(sessao.getValorIngresso()) + " | ");
@@ -293,17 +306,24 @@ public class CinemaUtil{
             leitor(0, 59, 'i');
             minuto = opcaoInt;
 
+            LocalTime horarioAtual = LocalTime.now();
             horario = LocalTime.of(hora, minuto, 0, 0);
+
+            if(horario.toSecondOfDay() < horarioAtual.toSecondOfDay()) {
+                System.out.println("\nAinda não podemos voltar no tempo. Por favor, defina um horário depois das " + horarioAtual.format(formataHora));
+                loop = true;
+            }
+
             for (Sessao sessao : cinema.getSessoes()) {
                 int horarioInicial = sessao.getHorario().toSecondOfDay(); //Horário que a sessão começa.
                 int horarioFinal = horarioInicial + sessao.getFilme().getDuracao() * 60; //Horário que a sessão acaba.
-                
+
                 if(sessao.getSala() == sala) { //Sessão que ocorre na mesma sala.
-                    if(horarioInicial - horario.toSecondOfDay() == 0) {  //Horário iguais
-                        System.out.println("\nJá existe uma sessão definida para este horário, defina outro.");
+                    if(horarioInicial - horario.toSecondOfDay() == 0){
+                        System.out.print("\nJá existe uma sessão definida para este horário, defina outro.");
                         loop = true;
                         break;
-                    }  else if(horario.toSecondOfDay() < horarioFinal && horario.toSecondOfDay() > horarioInicial) {
+                    } else if(horario.toSecondOfDay() < horarioFinal && horario.toSecondOfDay() > horarioInicial) {
                         System.out.println("\nUma sessão estará sendo exibida neste horário. O horário definido é conflitante, defina outro.");
                         loop = true;
                         break;
@@ -339,7 +359,9 @@ public class CinemaUtil{
 
             System.out.print("Opção: ");
             leitor(1, 2, 'i');
-            if(opcaoInt == 1) exibicao3D = true;
+            if(opcaoInt == 1) {
+                exibicao3D = true;
+            }
         }
 
         System.out.println("-------------------------------------------------------------------------------");
@@ -354,7 +376,9 @@ public class CinemaUtil{
         System.out.print("\nQual o valor do ingresso da sessão? ");
         leitor(1, 1000, 'd');
         double valorIngresso = opcaoDouble;
-        if(exibicao3D) valorIngresso *= 1.25;
+        if(exibicao3D) {
+            valorIngresso *= 1.25;
+        }
 
         Sessao sessao = new Sessao(filme, sala, horario, valorIngresso, exibicao3D, tipoAudio);
         cinema.novaSessao(sessao);
@@ -372,7 +396,9 @@ public class CinemaUtil{
         Sessao sessao = cinema.getSessoes().get(ponteiro);
 
         String permite3D = "Exibição em 2D";
-        if(sessao.getExibicao3D()) permite3D = "Exibição em 3D";
+        if(sessao.getExibicao3D()) {
+            permite3D = "Exibição em 3D";
+        }
 
         System.out.println("------------------------------------------------------");
         System.out.println("|             -> Modificando sessão <-               |");
@@ -429,15 +455,21 @@ public class CinemaUtil{
                     System.out.print("Agora, informe os minutos (0 - 59): ");
                     leitor(0, 59, 'i');
                     minuto = opcaoInt;
-        
+
                     horario = LocalTime.of(hora, minuto, 0, 0);
+                    LocalTime horarioAtual = LocalTime.now();
+                    if(horario.toSecondOfDay() < horarioAtual.toSecondOfDay()) {
+                        System.out.println("\nAinda não podemos voltar no tempo. Por favor, defina um horário depois das " + horarioAtual.format(formataHora));
+                        loop = true;
+                    }
+
                     for (Sessao sessaoCriada : cinema.getSessoes()) {
                         int horarioInicial = sessaoCriada.getHorario().toSecondOfDay(); //Horário que a sessão começa.
                         int horarioFinal = horarioInicial + sessaoCriada.getFilme().getDuracao() * 60; //Horário que a sessão acaba.
-                        
+
                         if(sessaoCriada.getSala() == sessao.getSala()) { //Sessão que ocorre na mesma sala.
-                            if(horarioInicial - horario.toSecondOfDay() == 0) {  //Horário iguais
-                                System.out.println("\nJá existe uma sessão definida para este horário, defina outro.");
+                            if(horarioInicial - horario.toSecondOfDay() == 0){
+                                System.out.print("\nJá existe uma sessão definida para este horário, defina outro.");
                                 loop = true;
                                 break;
                             }  else if(horario.toSecondOfDay() < horarioFinal && horario.toSecondOfDay() > horarioInicial) {
@@ -478,7 +510,9 @@ public class CinemaUtil{
                     System.out.print("Opção: ");
                     leitor(1, 2, 'i');
                     sessao.setExibicao3D(false);
-                    if(opcaoInt == 1) sessao.setExibicao3D(true);
+                    if(opcaoInt == 1) {
+                        sessao.setExibicao3D(true);
+                    }
 
                 } else {
                     System.out.println("O filme que será exibido nesta sessão não permite reprodução em 3D.");
@@ -492,7 +526,9 @@ public class CinemaUtil{
                 System.out.print("\nDigite o novo valor: ");
                 leitor(1, 1000, 'd');
 
-                if(sessao.getExibicao3D()) opcaoDouble*=1.25;
+                if(sessao.getExibicao3D()) {
+                    opcaoDouble*=1.25;
+                }
 
                 sessao.setValorIngresso(opcaoDouble);
 
@@ -677,7 +713,9 @@ public class CinemaUtil{
                     System.out.print("Tem certeza que deseja continuar?");
                     leitor(1, 2, 'i');
 
-                    if(opcaoInt == 2) break; //opcaoInt == 2, a sala não será removida.
+                    if(opcaoInt == 2) { //opcaoInt == 2, a sala não será removida.
+                        break;
+                    }
 
                     primeiraSessaoAfetada=true;
                     cinema.removerSessao(sessao);
@@ -687,7 +725,9 @@ public class CinemaUtil{
             }
         }
 
-        if(opcaoInt == 1) cinema.removerSala(sala);
+        if(opcaoInt == 1) {
+            cinema.removerSala(sala);
+        }
     }
 
     public static void gerenciarFilmes() {
@@ -750,7 +790,9 @@ public class CinemaUtil{
             Filme filme = filmes.get(i);
 
             String permite3D = "Não disponível";
-            if(filme.getPermite3D()) permite3D = "Disponível";
+            if(filme.getPermite3D()) {
+                permite3D = "Disponível";
+            }
 
             System.out.println("| " + (i + 1) + " | " + filme.getTitulo() + " | " + Arrays.toString(filme.getTipoAudio()) + 
                                "| " + filme.getTipoProducao()+ " | " + filme.getDuracao() + " | "  + permite3D + " |");
@@ -793,8 +835,9 @@ public class CinemaUtil{
         System.out.print("\nDigite o número da opção desejada: ");
         leitor(1, 2, 'i');
         String tipoProducao = "Estrangeira";
-        if(opcaoInt == 1)
+        if(opcaoInt == 1){
             tipoProducao = "Nacional";
+        }
 
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("|                    O filme permite reprodução em 3D?                        |");
@@ -825,7 +868,9 @@ public class CinemaUtil{
         Filme filme = cinema.getFilmes().get(ponteiro);
 
         String permite3D = "Não disponível";
-        if(filme.getPermite3D()) permite3D = "Disponível";
+        if(filme.getPermite3D()) {
+            permite3D = "Disponível";
+        }
 
         System.out.println("------------------------------------------------------");
         System.out.println("|              -> Modificando filme <-               |");
@@ -885,7 +930,9 @@ public class CinemaUtil{
                 System.out.print("\nDigite o número da opção desejada: ");
                 leitor(1, 2, 'i');
                 filme.setTipoProducao("Estrangeira");
-                if(opcaoInt == 1) filme.setTipoProducao("Nacional");
+                if(opcaoInt == 1) {
+                    filme.setTipoProducao("Nacional");
+                }
 
                 modificarFilme();
                 break;
@@ -905,7 +952,9 @@ public class CinemaUtil{
                 System.out.print("\nOpção: ");
                 leitor(1, 2, 'i');
                 filme.setPermite3D(false);
-                if(opcaoInt == 1) filme.setPermite3D(true);
+                if(opcaoInt == 1) {
+                    filme.setPermite3D(true);
+                }
 
                 modificarFilme();
                 break;
@@ -934,7 +983,9 @@ public class CinemaUtil{
                     System.out.print("Tem certeza que deseja continuar?");
                     leitor(1, 2, 'i');
 
-                    if(opcaoInt == 2) break; //O filme não será apagado, pois opcaoInt == 2
+                    if(opcaoInt == 2) { //O filme não será apagado, pois opcaoInt == 2
+                        break;
+                    }
 
                     primeiraSessaoAfetada=true;
                     cinema.removerSessao(sessao);
@@ -945,7 +996,9 @@ public class CinemaUtil{
             }
         }
 
-        if(opcaoInt == 1) cinema.removerFilme(filme);
+        if(opcaoInt == 1) {
+            cinema.removerFilme(filme);
+        }
     }
     /*MÉTODOS DE GERENCIAMENTO*/
 
@@ -968,7 +1021,9 @@ public class CinemaUtil{
         System.out.print("\nOpção: ");
         leitor(1, 2, 'i');
         char tipoIngresso = 'm';
-        if(opcaoInt == 1) tipoIngresso = 'i';
+        if(opcaoInt == 1) {
+            tipoIngresso = 'i';
+        }
         
         do {
             System.out.println(sessao.poltronasLivres());
@@ -1070,6 +1125,17 @@ public class CinemaUtil{
         }
     }
     
+    public static void atualizarSessoes() {
+        LocalTime horarioAtual = LocalTime.now();
+
+        for (int i = 0; i < cinema.getSessoes().size(); i++) {
+            if(cinema.getSessoes().get(i).getHorario().toSecondOfDay() < horarioAtual.toSecondOfDay()) {
+                cinema.removerSessao(cinema.getSessoes().get(i));
+            }
+        }
+
+    }
+
     public static void limparTela() {
         for(int i=0; i<100; i++) {
             System.out.println();

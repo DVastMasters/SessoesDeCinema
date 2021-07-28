@@ -17,13 +17,11 @@ public class Cinema {
         sessoes = new ArrayList<>();
     }
 
-	public void resetar(){ //Extra
+	public void fechar(){ //Extra
 		faturamentoInteiras = 0;
 		faturamentoInteiras3D = 0;
         faturamentoMeias = 0;
         faturamentoMeias3D = 0;
-        salas.clear();
-        filmes.clear();
         sessoes.clear();
 	}
 
