@@ -3,6 +3,7 @@ import java.util.Collections;
 
 public class Cinema {
     private double faturamentoInteiras, faturamentoInteiras3D, faturamentoMeias, faturamentoMeias3D;
+    private int ingressosInteiras, ingressosInteiras3D, ingressosMeias, ingressosMeias3D; 
     private ArrayList<Sala> salas;
     private ArrayList<Filme> filmes;
     private ArrayList<Sessao> sessoes;
@@ -12,6 +13,10 @@ public class Cinema {
         faturamentoInteiras3D = 0;
         faturamentoMeias = 0;
         faturamentoMeias3D = 0;
+        ingressosInteiras = 0;
+        ingressosInteiras3D = 0;
+        ingressosMeias = 0;
+        ingressosMeias3D =  0;
         salas = new ArrayList<>();
         filmes = new ArrayList<>();
         sessoes = new ArrayList<>();
@@ -22,6 +27,10 @@ public class Cinema {
 		faturamentoInteiras3D = 0;
         faturamentoMeias = 0;
         faturamentoMeias3D = 0;
+        ingressosInteiras = 0;
+        ingressosInteiras3D = 0;
+        ingressosMeias = 0;
+        ingressosMeias3D =  0;
         sessoes.clear();
 	}
 
@@ -59,16 +68,20 @@ public class Cinema {
             if(sessao.getExibicao3D()) { //A sessão é 3D.
 
                 if(tipoIngresso == 'i') {
+                    ingressosInteiras3D++;
                     faturamentoInteiras3D += sessao.getValorIngresso();
                 } else {
+                    ingressosMeias3D++;
                     faturamentoMeias3D += sessao.getValorIngresso() / 2;
                 }
 
             } else {                       
 
                 if(tipoIngresso == 'i') {
+                    ingressosInteiras++;
                     faturamentoInteiras += sessao.getValorIngresso();
                 } else {
+                    ingressosMeias++;
                     faturamentoMeias += sessao.getValorIngresso() / 2;
                 }
             }
@@ -88,15 +101,19 @@ public class Cinema {
             if(sessao.getExibicao3D()) {    //A sessão é 3D.    
 
                 if(tipoIngresso == 'i') {
+                    ingressosInteiras3D++;
                     faturamentoInteiras3D -= sessao.getValorIngresso();
                 } else {
+                    ingressosMeias3D++;
                     faturamentoMeias3D -= sessao.getValorIngresso() / 2;
                 }
 
             } else {
                 if(tipoIngresso == 'i') {
+                    ingressosInteiras++;
                     faturamentoInteiras -= sessao.getValorIngresso();
                 } else {
+                    ingressosMeias++;
                     faturamentoMeias -= sessao.getValorIngresso() / 2;
                 }
             }
@@ -122,6 +139,22 @@ public class Cinema {
 
     public double getFaturamentoMeias3D(){
         return faturamentoMeias3D;
+    }
+
+    public int getIngressosInteiras(){
+        return ingressosInteiras;
+    }
+
+    public int getIngressosInteiras3D(){
+        return ingressosInteiras3D;
+    }
+
+    public int getIngressosMeias(){
+        return ingressosMeias;
+    }
+
+    public int getIngressosMeias3D(){
+        return ingressosMeias3D;
     }
 
     public ArrayList<Sala> getSalas(){

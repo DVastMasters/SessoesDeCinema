@@ -1072,11 +1072,11 @@ public class CinemaUtil{
 
     public static void lerFaturamento() {
         System.out.println("\n                             > Sessões 3D < ");
-        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getFaturamentoInteiras3D());
-        System.out.println("Total de meio ingressos vendidos: " + cinema.getFaturamentoMeias3D());
+        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getIngressosInteiras());
+        System.out.println("Total de meio ingressos vendidos: " + cinema.getIngressosMeias3D());
         System.out.println("\n                             > Sessões 2D < ");
-        System.out.println("\nTotal de ingresso do tipo inteiro vendidos: " + cinema.getFaturamentoInteiras());
-        System.out.println("Total de ingresso do tipo inteiro vendidos: " + cinema.getFaturamentoMeias());
+        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getIngressosInteiras());
+        System.out.println("Total de meio ingresso vendidos: " + cinema.getIngressosMeias());
         pausar();
 
     }
