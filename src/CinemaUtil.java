@@ -20,11 +20,7 @@ public class CinemaUtil{
     public static void main(String[] args){
 
         do {
-            limparTela();
-
-            LocalTime teste = LocalTime.now();
-
-            System.out.println(teste.format(formataHora));
+            limparTela()
 
             if(aberto) {
                 System.out.println("--------------------------------------------");
