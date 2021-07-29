@@ -1,104 +1,123 @@
  import java.time.LocalTime;
 
-public class Sessao {
+public class Sessao implements Comparable<Sessao>{
     private Filme filme;
     private Sala sala;
-    private LocalTime horario;
+    private LocalTime horarioInicial;
+    private LocalTime horarioFinal;
     private double valorIngresso;
     private char[] poltronas; //l = livre; m = meia; i = inteira
     private boolean exibicao3D;
     private String tipoAudio;
 
-    public Sessao(Filme filme, Sala sala, LocalTime horario, double valorIngresso, boolean exibicao3D, String tipoAudio){
+    public Sessao(Filme filme, Sala sala, LocalTime horarioInicial, LocalTime horarioFinal, double valorIngresso, boolean exibicao3D, String tipoAudio){
         this.filme = filme;
         this.sala = sala;
-        this.horario = horario;
+        this.horarioInicial = horarioInicial;
+        this.horarioFinal = horarioFinal;
         this.valorIngresso = valorIngresso;
         this.exibicao3D = exibicao3D;
         this.tipoAudio = tipoAudio;
 
-        poltronas = new char[sala.getCapacidade()]; // = String[10], por exemplo
-        for(int i=0; i < poltronas.length; i++) {
+        poltronas = new char[sala.getCapacidade()];
+        for(int i=0; i < poltronas.length; i++) { //Inicializando todas as poltronas como livres.
             poltronas[i] = 'l';
         }
     }
 
-    public boolean ocuparPoltrona(int posicao, char tipoIngresso) { // Extra
-        boolean boo=true;
+    public boolean ocuparPoltrona(int poltrona, char tipoIngresso) {
 
-        if(poltronas[posicao] == 'l') {
-            poltronas[posicao] = tipoIngresso;
+        if(poltronas[poltrona] == 'l') {
+            poltronas[poltrona] = tipoIngresso;
+            return true;
         } else {
-            boo = false;
+            return false;
         }
 
-        return boo;
     }
 
-    public boolean liberarPoltrona(int posicao) { // Extra
-        boolean boo=true;
+    public boolean liberarPoltrona(int poltrona) {
 
-        if(poltronas[posicao] != 'l') {
-            poltronas[posicao] = 'l';
+        if(poltronas[poltrona] != 'l') {
+            poltronas[poltrona] = 'l';
+            return true;
         } else {
-            boo = false;
+            return false;
         }
-        
-        return boo;
+
     }
 
     public double taxaOcupacao(){
         double ocupados=0;
-        
-        for(int i=0; i < poltronas.length; i++) {
-            if(poltronas[i] != 'l') { // == m ou == i
-                ocupados++;
-            }
+
+        for (char p : poltronas) {
+            if(p != 'l')
+                ocupados++;         
         }
 
         return ocupados / sala.getCapacidade();
     }
    
     public String poltronasLivres(){
-        int poltronasLivres = 0;
-        String poltronasNum = "|  ";
+        int quantidade = 0;
+        String poltronasLivres = "|  ";
+
         for(int i = 0; i < poltronas.length; i++){
+
             if(poltronas[i] == 'l'){
-                poltronasLivres++;
-                if (i<9){ //Poltrona 10
-                    poltronasNum += " " + (i+1) + "  |  ";    
+                quantidade++;
+
+                if (i<9){
+                    poltronasLivres += " " + (i+1) + "  |  ";    
                 } else {
-                    poltronasNum += (i+1) + "  |  ";
+                    poltronasLivres += (i+1) + "  |  ";
                 }
-                if(i % 9 == 0 && i != 0) {
-                    poltronasNum += "\n|  ";
+
+                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                    poltronasLivres += "\n|  ";
                 }
             }
         }
-        return "Quantidade de poltronas livres: " + poltronasLivres + "\n   > Poltronas <   \n" + poltronasNum;
+        return "Quantidade de poltronas livres: " + quantidade + "\n   > Poltronas <   \n" + poltronasLivres;
     }
 
     public String poltronasOcupadas(){
-        int poltronasOcupadas = 0;
-        String poltronasNum = "|  ";
+        int quantidade = 0;
+        String poltronasOcupadas = "|  ";
+
         for(int i = 0; i < poltronas.length; i++){
+
             if(poltronas[i] != 'l'){
-                poltronasOcupadas++;
-                if (i<9){ //Poltrona 10
-                    poltronasNum += " " + (i+1) + "  |  ";    
+                quantidade++;
+
+                if (i<9){
+                    poltronasOcupadas += " " + (i+1) + "  |  ";    
                 } else {
-                    poltronasNum += (i+1) + "  |  ";    
+                    poltronasOcupadas += (i+1) + "  |  ";    
                 }
-                if(i % 9 == 0 && i != 0) {
-                    poltronasNum += "\n|  ";
+
+                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                    poltronasOcupadas += "\n|  ";
                 }
             }
         }
-        return "Quantidade de poltronas Ocupadas: " + poltronasOcupadas + "\n   > Poltronas <   \n" + poltronasNum;
+        return "Quantidade de poltronas Ocupadas: " + quantidade + "\n   > Poltronas <   \n" + poltronasOcupadas;
     }
 
-    public LocalTime getHorario(){
-        return horario;
+    public LocalTime getHorarioInicial(){
+        return horarioInicial;
+    }
+
+    public LocalTime getHorarioFinal(){
+        return horarioFinal;
+    }
+
+    public void setHorarioInicial(LocalTime horarioInicial){
+        this.horarioInicial = horarioInicial;
+    }
+
+    public void setHorarioFinal(LocalTime horarioFinal){
+        this.horarioFinal = horarioFinal;
     }
 
     public double getValorIngresso(){
@@ -125,10 +144,6 @@ public class Sessao {
         return tipoAudio;
     }
 
-    public void setHorario(LocalTime horario){
-        this.horario = horario; 
-    }
-
     public void setValorIngresso(double valorIngresso){
         this.valorIngresso = valorIngresso; 
     }
@@ -147,5 +162,14 @@ public class Sessao {
 
     public void setTipoAudio(String tipoAudio){
         this.tipoAudio = tipoAudio;
+    }
+
+    @Override
+    public int compareTo(Sessao sessao) {
+        if(this.horarioInicial.toSecondOfDay() > sessao.horarioInicial.toSecondOfDay())
+            return 1;
+        if(this.horarioInicial.toSecondOfDay() < sessao.horarioInicial.toSecondOfDay())
+            return -1;
+        return 0;
     }
 }

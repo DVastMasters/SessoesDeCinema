@@ -1,4 +1,4 @@
-public class Filme {
+public class Filme implements Comparable<Filme>{
 	private String titulo, tipoProducao;
 	private int duracao;
 	private String[] tipoAudio;
@@ -50,5 +50,10 @@ public class Filme {
 
 	public void setPermite3D(boolean permite3D) {
 		this.permite3D = permite3D;
+	}
+
+	@Override
+	public int compareTo(Filme filme) {
+		return this.titulo.compareTo(filme.titulo);
 	}
 }
