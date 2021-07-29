@@ -741,12 +741,12 @@ public class CinemaUtil{
             }
         } else { //GERENCIAR FILMES - >0 FILMES
             lerFilmes();
-            System.out.println("|                                                                                               |");
-            System.out.println("| 1 - Criar uma novo filme.                                                                     |");
-            System.out.println("| 2 - Modificar um filme.                                                                       |");
-            System.out.println("| 3 - Remover um filme.                                                                         |");
-            System.out.println("| 4 - Voltar.                                                                                   |");
-            System.out.println("-------------------------------------------------------------------------------------------------");
+            System.out.println("|                                                                                                                                        |");
+            System.out.println("| 1 - Criar uma novo filme.                                                                                                              |");
+            System.out.println("| 2 - Modificar um filme.                                                                                                                |");
+            System.out.println("| 3 - Remover um filme.                                                                                                                  |");
+            System.out.println("| 4 - Voltar.                                                                                                                            |");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 
             System.out.print("\nDigite o número da opção desejada: ");
             leitor(1, 4, 'i');
@@ -769,14 +769,22 @@ public class CinemaUtil{
 
     public static void lerFilmes() {
         Filme[] filmes = cinema.getFilmes();
+        String formatar = " ";
 
-        System.out.println("---------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("|                                        FILMES DISPONÍVEIS                                                               |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------|");
-        System.out.println("| N° |           TITULO           |       TIPO DE ÁUDIO      |     TIPO DE PRODUÇÃO      |     DURAÇÃO    |       3D      |");
-        System.out.println("|-------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("|                                                     FILMES DISPONÍVEIS                                                                 |");
+        System.out.println("|----------------------------------------------------------------------------------------------------------------------------------------|");
+        System.out.println("| N°|                 TITULO                 |               TIPO DE ÁUDIO               |     TIPO DE PRODUÇÃO      |  DURAÇÃO  |     3D    |");
+        System.out.println("|----------------------------------------------------------------------------------------------------------------------------------------|");
         for(int i = 0; i < filmes.length; i++){ 
             String permite3D = null;
+            int contador = 0;
+
+            contador = 39 - filmes[i].getTitulo().length(); 
+
+            for(int j = 0; j < contador; j++){
+                formatar += formatar;
+            }
 
             if(filmes[i].getPermite3D()){
                 permite3D = "Disponível";
@@ -784,7 +792,7 @@ public class CinemaUtil{
                 permite3D = "Não disponível";
             }
 
-            System.out.println("| " + (i + 1) + " | " + filmes[i].getTitulo() + " | " + Arrays.toString(filmes[i].getTipoAudio()) + 
+            System.out.println("| " + (i + 1) + " | " + filmes[i].getTitulo() + formatar + "| " + Arrays.toString(filmes[i].getTipoAudio()) + 
                                "| " + filmes[i].getTipoProducao()+ " | " + filmes[i].getDuracao() + " | "  + permite3D + " |");
         }
 
