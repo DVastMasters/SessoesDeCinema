@@ -25,10 +25,12 @@ public class Sala implements Comparable<Sala>{
 
 	@Override
 	public int compareTo(Sala sala) {
-		if(this.numSala > sala.numSala)
+		if(this.numSala > sala.numSala){
 			return 1;
-		if(this.numSala < sala.numSala)
+		}
+		if(this.numSala < sala.numSala){
 			return -1;
+		}
 		return 0;
 	}	
 }

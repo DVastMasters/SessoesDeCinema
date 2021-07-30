@@ -51,8 +51,9 @@ public class Sessao implements Comparable<Sessao>{
         double ocupados=0;
 
         for (char p : poltronas) {
-            if(p != 'l')
-                ocupados++;         
+            if(p != 'l'){
+                ocupados++;
+            }         
         }
 
         return ocupados / sala.getCapacidade();
@@ -65,15 +66,16 @@ public class Sessao implements Comparable<Sessao>{
         for(int i = 0; i < poltronas.length; i++){
 
             if(poltronas[i] == 'l'){
+                int pos = i+1;
                 quantidade++;
 
-                if (i<9){
-                    poltronasLivres += " " + (i+1) + "  |  ";    
+                if (pos<10){
+                    poltronasLivres += " " + (pos) + "  |  ";    
                 } else {
-                    poltronasLivres += (i+1) + "  |  ";
+                    poltronasLivres += (pos) + "  |  ";
                 }
 
-                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                if(i % 10 == 0 && i != 0) { //Dividir em 10 colunas
                     poltronasLivres += "\n|  ";
                 }
             }
@@ -101,7 +103,7 @@ public class Sessao implements Comparable<Sessao>{
                 }
             }
         }
-        return "Quantidade de poltronas Ocupadas: " + quantidade + "\n   > Poltronas <   \n" + poltronasOcupadas;
+        return "\n Quantidade de poltronas Ocupadas: " + quantidade + "\n\n    > Poltronas <   \n" + poltronasOcupadas;
     }
 
     public LocalTime getHorarioInicial(){
@@ -166,10 +168,12 @@ public class Sessao implements Comparable<Sessao>{
 
     @Override
     public int compareTo(Sessao sessao) {
-        if(this.horarioInicial.toSecondOfDay() > sessao.horarioInicial.toSecondOfDay())
+        if(this.horarioInicial.toSecondOfDay() > sessao.horarioInicial.toSecondOfDay()) {
             return 1;
-        if(this.horarioInicial.toSecondOfDay() < sessao.horarioInicial.toSecondOfDay())
+        }
+        if(this.horarioInicial.toSecondOfDay() < sessao.horarioInicial.toSecondOfDay()) {
             return -1;
+        }
         return 0;
     }
 }

@@ -22,7 +22,7 @@ public class Cinema {
         sessoes = new ArrayList<>();
     }
 
-	public void fechar(){ //Extra
+	public void fechar(){
 		faturamentoInteiras = 0;
 		faturamentoInteiras3D = 0;
         faturamentoMeias = 0;
@@ -34,7 +34,7 @@ public class Cinema {
         sessoes.clear();
 	}
 
-    public void novaSala(Sala sala) { //Extra
+    public void novaSala(Sala sala) {
         salas.add(sala);
         Collections.sort(salas);
     }
@@ -43,7 +43,7 @@ public class Cinema {
         salas.remove(sala);
     }
 
-    public void novoFilme(Filme filme) { //Extra
+    public void novoFilme(Filme filme) {
         filmes.add(filme);
         Collections.sort(filmes);
     }
@@ -52,7 +52,7 @@ public class Cinema {
         filmes.remove(filme);
     }
 
-    public void novaSessao(Sessao sessao) { //Extra
+    public void novaSessao(Sessao sessao) {
         sessoes.add(sessao);
         Collections.sort(sessoes);
     }
@@ -101,19 +101,19 @@ public class Cinema {
             if(sessao.getExibicao3D()) {    //A sessão é 3D.    
 
                 if(tipoIngresso == 'i') {
-                    ingressosInteiras3D++;
+                    ingressosInteiras3D--;
                     faturamentoInteiras3D -= sessao.getValorIngresso();
                 } else {
-                    ingressosMeias3D++;
+                    ingressosMeias3D--;
                     faturamentoMeias3D -= sessao.getValorIngresso() / 2;
                 }
 
             } else {
                 if(tipoIngresso == 'i') {
-                    ingressosInteiras++;
+                    ingressosInteiras--;
                     faturamentoInteiras -= sessao.getValorIngresso();
                 } else {
-                    ingressosMeias++;
+                    ingressosMeias--;
                     faturamentoMeias -= sessao.getValorIngresso() / 2;
                 }
             }
