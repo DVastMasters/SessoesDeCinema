@@ -217,11 +217,11 @@ public class CinemaUtil{
                 Sessao sessao = sessoes.get(i);
                 
                 String numero;
-                if(i < 9) {
-                    numero = "  " + (i+1)  + " ";
-                } else  {
-                    numero = " " + (i+1) + " ";
-                }
+                    if(i < 9) {
+                        numero = "  " + (i+1)  + " ";
+                    } else  {
+                        numero = " " + (i+1) + " ";
+                    }
 
                 String filme = " " + sessao.getFilme().getTitulo() + " ";
                     for(int f=filme.length(); f < 39; f++) {
@@ -440,8 +440,15 @@ public class CinemaUtil{
         System.out.println("|               Qual tipo de áudio será reproduzido nesta sessão?             |");
         System.out.println("|                                                                             |");
 
+
         for(int i = 0; i < filme.getTipoAudio().length; i++) {
-            System.out.println("| " + (i + 1) + " - " + filme.getTipoAudio()[i] +                            "|");
+
+            String audio = " " + filme.getTipoAudio()[i] + " ";
+                    for(int a = audio.length(); a < 72; a++) {
+                        audio += " ";
+                    }
+            
+            System.out.println("| " + (i + 1) + " - " + audio +                            "|");
         }
 
         System.out.println("-------------------------------------------------------------------------------");
@@ -469,10 +476,10 @@ public class CinemaUtil{
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("|                 -> Você está criando uma nova sessão <-                     |");
         System.out.println("-------------------------------------------------------------------------------");
-        System.out.println("| Filme: " + filme.getTitulo() +                                             "|");
-        System.out.println("| Sala: " + sala.getNumSala() +                                              "|");
-        System.out.println("| Horario de início:: " + horarioInicial +                                   "|");
-        System.out.println("| Horario de fim:: " + horarioFinal +                                        "|");
+        System.out.println("| Filme:" + titulo +                                                         "|");
+        System.out.println("| Sala:" + Nsala +                                                           "|");
+        System.out.println("| Horario de início: " + horarioInicial +"                                                    |");
+        System.out.println("| Horario de fim: " + horarioFinal +                                                         "|");
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("\n*Lembre-se, se o filme for reproduzido em 3D, haverá um incremento de 25% no valor digitado.");
 
@@ -759,6 +766,7 @@ public class CinemaUtil{
             
 
             System.out.println("|" + numero + "|" + sala + "|" + capacidade + "|");
+            System.out.println("-------------------------------------------------");
         }
     }
 
