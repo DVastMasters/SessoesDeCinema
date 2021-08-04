@@ -390,7 +390,7 @@ public class CinemaUtil{
             numSala += " ";
         }
 
-        System.out.println("\n-----------------------------------------------------------------------------");
+        System.out.println("\n-------------------------------------------------------------------------------");
         System.out.println("|                 -> Você está criando uma nova sessão <-                     |");
         System.out.println("-------------------------------------------------------------------------------");
         System.out.println("| Filme: " + titulo                                                        + "|");
@@ -505,7 +505,7 @@ public class CinemaUtil{
         System.out.println("| Sala: " + numSala +                                                        "|");
         System.out.println("| Horario de início: " + horaInicio +                                        "|");
         System.out.println("| Horario de fim: " + horaFinal +                                            "|");
-        System.out.println("\n-----------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------");
         System.out.println("\n*Lembre-se, se o filme for reproduzido em 3D, haverá um incremento de 25% no valor digitado.");
 
         System.out.print("\nQual o valor do ingresso da sessão? ");
@@ -771,7 +771,6 @@ public class CinemaUtil{
             }
         } else { //GERENCIAR SALAS - >0 SALAS
             lerSalas();
-            System.out.println("-------------------------------------------");
             System.out.println("|                                         |");
             System.out.println("| 1 - Criar uma nova sala.                |");
             System.out.println("| 2 - Modificar uma sala.                 |");
@@ -966,9 +965,11 @@ public class CinemaUtil{
 
     public static void gerenciarFilmes() {
         ArrayList<Filme> filmes = cinema.getFilmes();
+
+	limparTela();
         
         if(filmes.size() == 0){ //GERENCIAR FILMES - PRIMEIRA VEZ
-            System.out.println("-------------------------------------------------------------------------------");
+            System.out.println("\n-------------------------------------------------------------------------------");
             System.out.println("|                  -> Você está gerenciando os filmes <-                      |");
             System.out.println("|                                                                             |");
             System.out.println("| Nenhum filme foi definido.                                                  |");
@@ -1324,7 +1325,7 @@ public class CinemaUtil{
 
         Sessao sessao = cinema.getSessoes().get(opcaoInt-1);
 
-        System.out.println("------------------------------------------------------");
+        System.out.println("\n------------------------------------------------------");
         System.out.println("|          -> Qual o tipo de ingresso? <-            |");
         System.out.println("|                                                    |");
         System.out.println("| 1 - Inteiro.                                       |");
@@ -1341,7 +1342,7 @@ public class CinemaUtil{
         do {
             System.out.println(sessao.poltronasLivres());
 
-            System.out.println("\nDigite o número da poltrona: ");
+            System.out.print("\nDigite o número da poltrona: ");
             leitor(1, sessao.getSala().getCapacidade(), 'i');
 
             if(cinema.venderIngresso(sessao, tipoIngresso, opcaoInt-1)) {
@@ -1374,7 +1375,7 @@ public class CinemaUtil{
         Sessao sessao = cinema.getSessoes().get(opcaoInt-1);
 
         do {
-            System.out.println(sessao.poltronasOcupadas());
+            System.out.print(sessao.poltronasOcupadas());
 
             System.out.print("\nQual a poltrona a ser liberada? ");
             leitor(1, sessao.getSala().getCapacidade(), 'i');
@@ -1393,11 +1394,15 @@ public class CinemaUtil{
 
     public static void lerFaturamento() {
         System.out.println("\n                             > Sessões 3D < ");
-        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getIngressosInteiras());
+        System.out.println("\nTotal de ingressos inteiros vendidos: " + cinema.getIngressosInteiras3D());
+	System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras3D()));
         System.out.println("Total de meio ingressos vendidos: " + cinema.getIngressosMeias3D());
+	System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias3D()));
         System.out.println("\n                             > Sessões 2D < ");
-        System.out.println("\nTotal de ingresso inteiros vendidos: " + cinema.getIngressosInteiras());
+        System.out.println("\nTotal de ingressos inteiros vendidos: " + cinema.getIngressosInteiras());
+	System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras()));
         System.out.println("Total de meio ingresso vendidos: " + cinema.getIngressosMeias());
+	System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias()));
         pausar();
 
     }

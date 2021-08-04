@@ -66,16 +66,15 @@ public class Sessao implements Comparable<Sessao>{
         for(int i = 0; i < poltronas.length; i++){
 
             if(poltronas[i] == 'l'){
-                int pos = i+1;
                 quantidade++;
 
-                if (pos<10){
-                    poltronasLivres += " " + (pos) + "  |  ";    
+                if (i<9){
+                    poltronasLivres += " " + (i+1) + "  |  ";    
                 } else {
-                    poltronasLivres += (pos) + "  |  ";
+                    poltronasLivres += (i+1) + "  |  ";
                 }
 
-                if(i % 10 == 0 && i != 0) { //Dividir em 10 colunas
+                if((i+1) % 10 == 0 && i != 0 && i != poltronas.length) { //Dividir em 10 colunas
                     poltronasLivres += "\n|  ";
                 }
             }
@@ -98,7 +97,7 @@ public class Sessao implements Comparable<Sessao>{
                     poltronasOcupadas += (i+1) + "  |  ";    
                 }
 
-                if(i % 9 == 0 && i != 0) { //Dividir em 10 colunas
+                if(i % 9 == 0 && i != 0 && i != poltronas.length) { //Dividir em 10 colunas
                     poltronasOcupadas += "\n|  ";
                 }
             }
