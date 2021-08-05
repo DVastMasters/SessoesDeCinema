@@ -208,7 +208,7 @@ public class CinemaUtil{
     }
 
     public static void lerSessoes() {
-        //atualizarSessoes();
+        atualizarSessoes();
         ArrayList<Sessao> sessoes = cinema.getSessoes();
 
         if(aberto) {
@@ -245,8 +245,10 @@ public class CinemaUtil{
                 //Formatação inicio
                 String inicio = "  " + sessao.getHorarioInicial() + " ";
 
+                //Formatação fim
                 String fim = " " + sessao.getHorarioFinal() + " ";
 
+                //Formatação áudio
                 String audio = " " + sessao.getTipoAudio() + " ";
                 for(int a = audio.length(); a < 22; a++) {
                     audio += " ";
@@ -966,7 +968,7 @@ public class CinemaUtil{
     public static void gerenciarFilmes() {
         ArrayList<Filme> filmes = cinema.getFilmes();
 
-	limparTela();
+	    limparTela();
         
         if(filmes.size() == 0){ //GERENCIAR FILMES - PRIMEIRA VEZ
             System.out.println("\n-------------------------------------------------------------------------------");
@@ -1395,14 +1397,14 @@ public class CinemaUtil{
     public static void lerFaturamento() {
         System.out.println("\n                             > Sessões 3D < ");
         System.out.println("\nTotal de ingressos inteiros vendidos: " + cinema.getIngressosInteiras3D());
-	System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras3D()));
+	    System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras3D()));
         System.out.println("Total de meio ingressos vendidos: " + cinema.getIngressosMeias3D());
-	System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias3D()));
+	    System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias3D()));
         System.out.println("\n                             > Sessões 2D < ");
         System.out.println("\nTotal de ingressos inteiros vendidos: " + cinema.getIngressosInteiras());
-	System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras()));
+	    System.out.println("Total de ingressos inteiros vendidos (em reais): " + df.format(cinema.getFaturamentoInteiras()));
         System.out.println("Total de meio ingresso vendidos: " + cinema.getIngressosMeias());
-	System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias()));
+	    System.out.println("Total de meio ingressos vendidos (em reais): " + df.format(cinema.getFaturamentoMeias()));
         pausar();
 
     }
@@ -1463,7 +1465,7 @@ public class CinemaUtil{
     }
 
     public static void limparTela() {
-        for(int i=0; i<50; i++) {
+        for(int i=0; i<100; i++) {
             System.out.println();
         }
     }

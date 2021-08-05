@@ -1,4 +1,4 @@
- import java.time.LocalTime;
+import java.time.LocalTime;
 
 public class Sessao implements Comparable<Sessao>{
     private Filme filme;
