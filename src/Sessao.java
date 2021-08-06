@@ -74,10 +74,12 @@ public class Sessao implements Comparable<Sessao>{
                     poltronasLivres += (i+1) + "  |  ";
                 }
 
-                if((i+1) % 10 == 0 && i != 0 && i != poltronas.length) { //Dividir em 10 colunas
-                    poltronasLivres += "\n|  ";
-                }
             }
+
+            if((i+1) % 10 == 0 && i != 0 && i != poltronas.length-1) { //Dividir em 10 colunas
+                poltronasLivres += "\n|  ";
+            }
+
         }
         return "Quantidade de poltronas livres: " + quantidade + "\n   > Poltronas <   \n" + poltronasLivres;
     }
@@ -97,10 +99,12 @@ public class Sessao implements Comparable<Sessao>{
                     poltronasOcupadas += (i+1) + "  |  ";    
                 }
 
-                if(i % 9 == 0 && i != 0 && i != poltronas.length) { //Dividir em 10 colunas
-                    poltronasOcupadas += "\n|  ";
-                }
             }
+
+            if(i % 9 == 0 && i != 0 && i != poltronas.length-1) { //Dividir em 10 colunas
+                poltronasOcupadas += "\n|  ";
+            }
+            
         }
         return "\n Quantidade de poltronas Ocupadas: " + quantidade + "\n\n    > Poltronas <   \n" + poltronasOcupadas;
     }

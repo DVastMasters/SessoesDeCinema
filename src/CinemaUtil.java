@@ -264,7 +264,7 @@ public class CinemaUtil{
                     valor += " ";
                 }
 
-                String taxa = " " + df.format(sessao.taxaOcupacao()) + "% ";
+                String taxa = " " + df.format(sessao.taxaOcupacao() * 100) + "% ";
                 for(int t = taxa.length(); t < 19; t++) {
                     taxa += " ";
                 }
